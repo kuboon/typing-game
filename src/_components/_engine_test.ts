@@ -1,0 +1,47 @@
+// url_test.ts
+import { assertEquals } from "deno/std/testing/asserts.ts";
+import { kanaToRomanChars, matchInput } from "./_engine.ts";
+
+Deno.test("kanaToRomanChars", () => {
+  assertEquals(kanaToRomanChars("あかさ"), [
+    { kana: "あ", roman: "a", state: "yet" },
+    { kana: "か", roman: "ka", state: "yet" },
+    { kana: "さ", roman: "sa", state: "yet" },
+  ]);
+  assertEquals(kanaToRomanChars("きっかけ"), [
+    { kana: "き", roman: "ki", state: "yet" },
+    { kana: "っか", roman: "kka", state: "yet" },
+    { kana: "け", roman: "ke", state: "yet" },
+  ]);
+  assertEquals(kanaToRomanChars("ふぁっしょん。"), [
+    { kana: "ふぁ", roman: "fa", state: "yet" },
+    { kana: "っしょ", roman: "ssho", state: "yet" },
+    { kana: "ん。", roman: "n.", state: "yet" },
+  ]);
+});
+
+Deno.test("matchInput", () => {
+  assertEquals(matchInput("wassya-", "わっしゃー"), [
+    { kana: "わ", roman: "wa", state: "ok" },
+    { kana: "っしゃ", roman: "ssya", state: "ok" },
+    { kana: "ー", roman: "-", state: "ok" },
+  ]);
+  assertEquals(matchInput("waxtusya-", "わっしゃー"), [
+    { kana: "わ", roman: "wa", state: "ok" },
+    { kana: "っ", roman: "xtu", state: "ok" },
+    { kana: "しゃ", roman: "sya", state: "ok" },
+    { kana: "ー", roman: "-", state: "ok" },
+  ]);
+  assertEquals(matchInput("wassha-", "わっしゃー"), [
+    { kana: "わ", roman: "wa", state: "ok" },
+    { kana: "っしゃ", roman: "ssha", state: "ok" },
+    { kana: "ー", roman: "-", state: "ok" },
+  ]);
+  assertEquals(matchInput("wassh", "わっしゃー"), [
+    { kana: "わ", roman: "wa", state: "ok" },
+    { kana: "っしゃ", roman: "ssha", state: "in", input: "ssh" },
+    { kana: "ー", roman: "-", state: "yet" },
+  ]);
+});
+// Deno.test("focus", () => {
+// });

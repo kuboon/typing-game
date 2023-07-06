@@ -1,0 +1,50 @@
+main#main {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.GameMain {
+  font-size: 3rem;
+}
+.current {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.current .question {
+  margin-right: 2rem;
+}
+.keyboard {
+}
+.keyboard .row {
+  display: flex;
+}
+.keyboard .row .key {
+  flex: 1;
+  border: 1px solid #ccc;
+  text-align: center;
+  cursor: pointer;
+  font-size: 6vw;
+}
+.key#Backspace {
+  font-size: 3vw;
+}
+.keyboard .row .half {
+  flex: 0.5;
+}
+.key.active {
+  background: #ccc;
+
+}
+
+ruby.yet {
+  color: gray;
+}
+ruby.in {
+  color: blue;
+}
+ruby.ng {
+  color: red;
+}

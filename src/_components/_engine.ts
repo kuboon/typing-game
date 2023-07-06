@@ -1,7 +1,11 @@
+// lume で build してブラウザで動かす時はこっち
 import RomajiYaml_ from "../_data/romaji.yaml";
-const RomajiYaml = RomajiYaml_ as { [key: string]: string | string[] };
+
+// Deno 上で test する時はこっち
 // import { parse } from "deno/std/yaml/parse.ts"
-// const RomajiYaml = parse(Deno.readTextFileSync('./src/_data/romaji.yaml')) as { [key: string]: string | string[] }
+// const RomajiYaml_ = parse(Deno.readTextFileSync('./src/_data/romaji.yaml'))
+
+const RomajiYaml = RomajiYaml_ as { [key: string]: string | string[] };
 const KanaRomansDict: Record<string, string[]> = {};
 const RomansKanaDict: Record<string, string> = {};
 for (const kana in RomajiYaml) {

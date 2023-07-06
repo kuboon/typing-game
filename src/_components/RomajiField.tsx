@@ -5,6 +5,7 @@ type Args = { answer: string; complete: () => void };
 
 export default function RomajiField({ answer, complete }: Args) {
   const [input, setInput] = useState("");
+  const [hide, setHide] = useState(true);
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -12,6 +13,7 @@ export default function RomajiField({ answer, complete }: Args) {
     };
   }, []);
 
+  if (hide) setTimeout(()=>setHide(false), 1)
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.code === "Backspace") {
       setInput((x: string) => x.slice(0, -1));
@@ -24,14 +26,17 @@ export default function RomajiField({ answer, complete }: Args) {
   const match = matchInput(input, answer);
   if (match.every((x) => x.state === "ok")) {
     setInput("");
+    setHide(true)
     complete();
   }
   return (
-    <div class="answer">
+    <div class={['answer', hide ? '' : 'show'].join(' ')}>
       {match.map(({ kana, roman, state, input }) => (
         <ruby class={state}>
           {kana}
-          <rt>{input || roman}</rt>
+          <rt>
+            <span class='input'>{input}</span>
+            <span class='roman'>{roman.slice(input?.length || 0)}</span></rt>
         </ruby>
       ))}
     </div>

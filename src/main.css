@@ -41,9 +41,18 @@ main#main {
 
 ruby.yet {
   color: gray;
+  opacity: 0;
 }
+.show ruby.yet {
+  opacity: 1;
+  transition: opacity 1s ease-in-out 1s;
+}
+
 ruby.in {
   color: blue;
+}
+ruby.in .roman {
+  color: gray;
 }
 ruby.ng {
   color: red;

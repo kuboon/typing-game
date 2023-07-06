@@ -1,6 +1,6 @@
 // url_test.ts
 import { assertEquals } from "deno/std/testing/asserts.ts";
-import { loadRomajiDict, kanaToRomanChars, matchInput } from "./_engine.ts";
+import { loadRomajiDict, kanaToRomanChars, matchInput, firstLongestKanaMatch } from "./_engine.ts";
 import { parse } from "deno/std/yaml/parse.ts"
 const RomajiYaml_ = parse(Deno.readTextFileSync('./src/_data/romaji.yaml'))
 loadRomajiDict(RomajiYaml_ as any)
@@ -46,5 +46,7 @@ Deno.test("matchInput", () => {
     { kana: "ー", roman: "-", state: "yet" },
   ]);
 });
-// Deno.test("focus", () => {
-// });
+Deno.test("focus", () => {
+  assertEquals(firstLongestKanaMatch("っしょん。", "xt"),
+    { kana: 'っ', roman: 'xtu', input: 'xt', state: 'in'})
+});

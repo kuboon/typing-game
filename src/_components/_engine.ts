@@ -36,36 +36,39 @@ export function firstLongestKanaMatch(
   kana: string,
   input = "",
 ): CharUnitWithInput {
+  let candidates: CharUnit[] = []
   for (let l = LongestKana; l > 0; l--) {
     const k = kana.slice(0, l);
     if (k in KanaRomansDict) {
-      let candidates = KanaRomansDict[k];
       if (input === "") {
-        return { kana: k, roman: candidates[0], state: "yet" };
+        return { kana: k, roman: KanaRomansDict[k][0], state: "yet" };
       }
-      let inputLen = 1;
-      while (inputLen <= input.length) {
-        const next = candidates.filter((c) =>
-          c.startsWith(input.slice(0, inputLen++))
-        );
-        if (next.length === 0) {
-          return { kana: k, roman: candidates[0], state: "ng", input };
-        }
-        candidates = next;
-      }
-      return { kana: k, roman: candidates[0], state: "in", input };
+      KanaRomansDict[k].forEach((r) => candidates.push({ kana: k, roman: r }));
     }
   }
-  if (input === "") {
-    return { kana: kana[0], roman: kana[0], state: "yet" };
+  if (candidates.length === 0) {
+    if (input === "") {
+      return { kana: kana[0], roman: kana[0], state: "yet" };
+    }
+    const correct = kana[0] === input[0];
+    return {
+      kana: kana[0],
+      roman: input[0],
+      state: correct ? "ok" : "ng",
+      input: input[0],
+    };
   }
-  const correct = kana[0] === input[0];
-  return {
-    kana: kana[0],
-    roman: input[0],
-    state: correct ? "ok" : "ng",
-    input: input[0],
-  };
+  let inputLen = 1;
+  while (inputLen <= input.length) {
+    const next = candidates.filter((c) =>
+      c.roman.startsWith(input.slice(0, inputLen++))
+    );
+    if (next.length === 0) {
+      return { kana: candidates[0].kana, roman: candidates[0].roman, state: "ng", input };
+    }
+    candidates = next;
+  }
+  return { kana: candidates[0].kana, roman: candidates[0].roman, state: "in", input };
 }
 export function matchInput(roman: string, kana: string): CharUnitWithInput[] {
   if (kana.length === 0) return [];

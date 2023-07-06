@@ -1,29 +1,27 @@
-// lume で build してブラウザで動かす時はこっち
-import RomajiYaml_ from "../_data/romaji.yaml";
 
-// Deno 上で test する時はこっち
-// import { parse } from "deno/std/yaml/parse.ts"
-// const RomajiYaml_ = parse(Deno.readTextFileSync('./src/_data/romaji.yaml'))
-
-const RomajiYaml = RomajiYaml_ as { [key: string]: string | string[] };
 const KanaRomansDict: Record<string, string[]> = {};
 const RomansKanaDict: Record<string, string> = {};
-for (const kana in RomajiYaml) {
-  const val = RomajiYaml[kana];
-  const arr = Array.isArray(val) ? val : [val];
-  KanaRomansDict[kana] = arr;
-  for (const roman of arr) {
-    RomansKanaDict[roman] = kana;
+let LongestKana = 0;
+let LongestRoman = 0;
+
+export function loadRomajiDict(json: { [key: string]: string | string[] }) {
+  for (const kana in json) {
+    const val = json[kana];
+    const arr = Array.isArray(val) ? val : [val];
+    KanaRomansDict[kana] = arr;
+    for (const roman of arr) {
+      RomansKanaDict[roman] = kana;
+    }
   }
+  LongestKana = Object.keys(KanaRomansDict).reduce(
+    (acc, cur) => acc.length > cur.length ? acc : cur,
+    "",
+  ).length;
+  LongestRoman = Object.keys(RomansKanaDict).reduce(
+    (acc, cur) => acc.length > cur.length ? acc : cur,
+    "",
+  ).length;
 }
-const LongestKana = Object.keys(KanaRomansDict).reduce(
-  (acc, cur) => acc.length > cur.length ? acc : cur,
-  "",
-).length;
-const LongestRoman = Object.keys(RomansKanaDict).reduce(
-  (acc, cur) => acc.length > cur.length ? acc : cur,
-  "",
-).length;
 
 type CharUnit = {
   kana: string;
@@ -71,7 +69,7 @@ export function firstLongestKanaMatch(
 }
 export function matchInput(roman: string, kana: string): CharUnitWithInput[] {
   if (kana.length === 0) return [];
-  for (let len = 1; len <= LongestRoman; len++) {
+  for (let len = 1; len <= LongestRoman && len <= roman.length; len++) {
     const r = roman.slice(0, len);
     if (r in RomansKanaDict) {
       const k = RomansKanaDict[r];
@@ -101,4 +99,3 @@ export function kanaToRomanChars(kana: string): CharUnitWithInput[] {
   }
   return result;
 }
-// console.log(matchInput("fasshon.", "ふぁっしょん。"))

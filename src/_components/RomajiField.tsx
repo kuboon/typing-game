@@ -1,5 +1,8 @@
+import RomajiYaml_ from "../_data/romaji.yaml";
 import { useEffect, useState } from "https://esm.sh/preact/hooks?dev";
-import { matchInput } from "./_engine.ts";
+import { loadRomajiDict, matchInput } from "./_engine.ts";
+
+loadRomajiDict(RomajiYaml_);
 
 type Args = { answer: string; complete: () => void };
 

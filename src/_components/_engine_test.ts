@@ -1,6 +1,9 @@
 // url_test.ts
 import { assertEquals } from "deno/std/testing/asserts.ts";
-import { kanaToRomanChars, matchInput } from "./_engine.ts";
+import { loadRomajiDict, kanaToRomanChars, matchInput } from "./_engine.ts";
+import { parse } from "deno/std/yaml/parse.ts"
+const RomajiYaml_ = parse(Deno.readTextFileSync('./src/_data/romaji.yaml'))
+loadRomajiDict(RomajiYaml_ as any)
 
 Deno.test("kanaToRomanChars", () => {
   assertEquals(kanaToRomanChars("あかさ"), [

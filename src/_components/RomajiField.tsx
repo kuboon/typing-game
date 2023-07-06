@@ -17,7 +17,7 @@ export default function RomajiField({ answer, complete }: Args) {
       setInput((x: string) => x.slice(0, -1));
       return;
     }
-    if ("abcdefghijklmnopqrstuvwxyz".includes(event.key)) {
+    if ("abcdefghijklmnopqrstuvwxyz,.".includes(event.key)) {
       setInput((x: string) => x + event.key);
     }
   };

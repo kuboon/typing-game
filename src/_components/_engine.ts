@@ -97,4 +97,4 @@ export function kanaToRomanChars(kana: string): CharUnitWithInput[] {
   }
   return result;
 }
-matchInput("wassh", "わっしゃー");
+// console.log(matchInput("fasshon.", "ふぁっしょん。"))

@@ -4,9 +4,9 @@ import { loadRomajiDict, matchInput } from "./_engine.ts";
 
 loadRomajiDict(RomajiYaml_);
 
-type Args = { answer: string; complete: () => void };
+type Args = { answer: string; };
 
-export default function RomajiField({ answer, complete }: Args) {
+export default function RomajiField({ answer }: Args) {
   const [input, setInput] = useState("");
   const [hide, setHide] = useState(true);
   useEffect(() => {
@@ -27,10 +27,13 @@ export default function RomajiField({ answer, complete }: Args) {
     }
   };
   const match = matchInput(input, answer);
+  if (match.some((x) => x.state === "ng")) {
+    document.dispatchEvent(new Event('game:miss'));
+  }
   if (match.every((x) => x.state === "ok")) {
     setInput("");
     setHide(true)
-    complete();
+    document.dispatchEvent(new Event('game:complete'));
   }
   return (
     <div class={['answer', hide ? '' : 'show'].join(' ')}>

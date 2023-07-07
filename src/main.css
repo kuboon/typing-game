@@ -6,18 +6,25 @@ main#main {
 }
 
 .GameMain {
-  font-size: 3rem;
-}
-.current {
+  align-items: center;
   display: flex;
-  justify-content: center;
-  align-items: end;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  font-size: 2rem;
 }
-.current .question {
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%
+}
+.question {
   margin-right: 2rem;
 }
-.keyboard {
+.answer {
+  font-size: 3rem;
 }
+
 .keyboard .row {
   display: flex;
 }

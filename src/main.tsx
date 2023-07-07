@@ -5,7 +5,7 @@ import Keyboard from "./_components/Keyboard.tsx";
 const App = ({ problems }: { problems: any }) => (
   <>
     <GameMain problems={problems} />
-    <details open>
+    <details>
       <summary>キーボード</summary>
       <Keyboard />
     </details>

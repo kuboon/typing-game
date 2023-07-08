@@ -55,3 +55,6 @@ https://typing.kbn.one/#https://docs.google.com/spreadsheets/d/e/xxx/pub?gid=0&s
 - :title タイトル (画面に表示されます)
 - :timelimit 制限時間(秒)
 - :shuffle true にすると出題がシャッフルされます。
+
+# ソースコード
+- [github](https://github.com/kuboon/typing-game)

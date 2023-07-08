@@ -15,7 +15,7 @@ const App = ({ problems }: { problems: any }) => (
 function parseCsv(csv: string) {
   return csv.split("\n")
     .map(x => x.split(','))
-    .filter(([q, a]) => q && a)
+    .filter(([q, a]) => q && a && a.length > 0)
     .map(([q, a]) => ({ q, a: a.trim() }));
 }
 

@@ -2,6 +2,7 @@ import RomajiField from "./RomajiField.tsx";
 import { useEffect } from "https://esm.sh/stable/preact@10.15.1/denonext/hooks.development.js";
 import { useSignal } from "https://esm.sh/@preact/signals?dev";
 import type { Signal } from "https://esm.sh/@preact/signals?dev";
+import { GameSettings } from "./_lib.ts";
 
 type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
@@ -9,7 +10,6 @@ type GameMainState = "ready" | "playing";
 function Timer({ timer }: { timer: Signal<number> }) {
   const timerId = useSignal<null | number>(null)
   document.addEventListener('game:play', () => {
-    timer.value = 60;
     timerId.value = setInterval(() => {
       timer.value--;
       if (timer.value <= 0 && timerId.value) {
@@ -24,23 +24,22 @@ function Timer({ timer }: { timer: Signal<number> }) {
       timerId.value = null;
     }
   });
-
-
   return <div class='timer'>のこり: {timer} びょう</div>
 }
 
-export default function GameMain({ problems }: { problems: QandA[] }) {
+export default function GameMain({ problems, settings }: { problems: QandA[], settings: GameSettings }) {
   const state = useSignal("ready" as GameMainState);
   const currentNum = useSignal(0);
   const score = useSignal(0);
   const combo = useSignal(0);
-  const timer = useSignal(60);
+  const timer = useSignal(settings.timelimit);
 
 
   const play = () => {
     currentNum.value = 0;
     score.value = 0;
     combo.value = 1;
+    timer.value = settings.timelimit;
     state.value = "playing";
     document.dispatchEvent(new Event('game:play'));
   };
@@ -76,9 +75,11 @@ export default function GameMain({ problems }: { problems: QandA[] }) {
     <div class={state}>
       <header>
         <h1>たいぴすたん</h1>
+        <h2>{settings.title}</h2>
+        <a href="/inst/">説明</a>
       </header>
       <div class="GameMain">
-        <div class="header">
+        <div class="score_block">
           <div class="score">とくてん: {score} {combo.value > 0 && `[+${combo}]`}</div>
           <Timer timer={timer} /></div>
         {state.value === "ready" &&

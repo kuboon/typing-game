@@ -21,3 +21,16 @@ https://typing.kbn.one/#https://docs.google.com/spreadsheets/d/e/2PACX-1vTKZUKL8
 このURLをブックマークしたり、SNSにシェアすることが出来ます。
 
 ※注意 CSV のURLへのアクセス権限を持った方しか開くことはできません。
+
+## 設定値
+1列目が : で始まる行は2列目が設定値として扱われます。
+例:
+```csv
+:title,百人一首
+:timelimit,120
+```
+
+設定できる値は以下の通りです。
+- :title タイトル (画面に表示されます)
+- :timelimit 制限時間(秒)
+- :shuffle true にすると出題がシャッフルされます。

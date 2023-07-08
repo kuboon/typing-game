@@ -1,16 +1,7 @@
-import { render } from "https://esm.sh/preact?dev";
 import GameMain from "./_components/GameMain.tsx";
 import Keyboard from "./_components/Keyboard.tsx";
-
-const App = ({ problems }: { problems: any }) => (
-  <>
-    <GameMain problems={problems} />
-    <details>
-      <summary>きーぼーど</summary>
-      <Keyboard />
-    </details>
-  </>
-);
+import { render } from "https://esm.sh/preact?dev";
+import { GameSettings } from "./_components/_lib.ts";
 
 function parseCsv(csv: string) {
   return csv.split("\n")
@@ -21,11 +12,41 @@ function parseCsv(csv: string) {
 
 (async () => {
   const hash = location.hash.slice(1);
-  let problems;
+  let problems_;
   if (hash.length > 0) {
-    problems = await fetch(hash).then((x) => x.text()).then(parseCsv).catch(console.error)
+    problems_ = await fetch(hash).then((x) => x.text()).then(parseCsv).catch(console.error)
   }
-  problems = problems || await fetch("/csv/todoufuken.csv").then((x) => x.text()).then(parseCsv)
+  problems_ = problems_ || await fetch("/csv/todoufuken.csv").then((x) => x.text()).then(parseCsv)
 
-  render(<App problems={problems}/>, document.getElementById("app")!);
+  const settings: GameSettings = {
+    title: '',
+    timelimit: 60,
+    shuffle: false
+  }
+  problems_.forEach(({ q, a }) => {
+    if (!q.startsWith(':')) return
+    switch (q) {
+      case ':title':
+        settings.title = a
+        break
+      case ':timelimit':
+        settings.timelimit = parseInt(a)
+        break
+      case ':shuffle':
+        settings.shuffle = a === 'true'
+        break
+    }
+  });
+
+  const problems = problems_.filter(({ q }) => !q.startsWith(':'))
+  if(settings.shuffle) problems.sort(() => Math.random() - 0.5)
+  const App = <>
+    <GameMain problems={problems} settings={settings} />
+    <details>
+      <summary>きーぼーど</summary>
+      <Keyboard />
+    </details>
+  </>
+
+  render(App, document.getElementById("app")!);
 })();

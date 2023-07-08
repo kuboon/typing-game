@@ -15,9 +15,23 @@ body { margin: 0; }
 }
 
 header {
+  padding: 0.3rem;
   background-color: beige;
   transition: transform 1s;
+  display: flex;
+  align-items: center;
 }
+header h1, header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+header :first-child {
+  margin-right: 1rem;
+}
+header :last-child {
+  margin-left: auto;
+}
+
 .playing header {
   transform: scaleY(0);
 }
@@ -30,7 +44,7 @@ header {
   justify-content: space-evenly;
   font-size: 2rem;
 }
-.header {
+.score_block {
   display: flex;
   justify-content: space-evenly;
   width: 100%

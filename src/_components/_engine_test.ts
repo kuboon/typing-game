@@ -56,3 +56,9 @@ Deno.test("alphabet", () => {
     { kana: 'c', roman: '', state: 'yet'}
   ])
 })
+Deno.test({name: "みえ", only: true, fn() {
+  assertEquals(matchInput("mie", "みえ"), [
+    { kana: 'み', roman: 'mi', state: 'ok'},
+    { kana: 'え', roman: 'e', state: 'ok'}
+  ])
+}})

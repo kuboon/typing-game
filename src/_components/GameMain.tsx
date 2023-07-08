@@ -6,7 +6,7 @@ import type { Signal } from "https://esm.sh/@preact/signals?dev";
 type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
 
-function Timer({timer}: {timer: Signal<number>}) {
+function Timer({ timer }: { timer: Signal<number> }) {
   const timerId = useSignal<null | number>(null)
   document.addEventListener('game:play', () => {
     timer.value = 60;
@@ -61,7 +61,7 @@ export default function GameMain({ problems }: { problems: QandA[] }) {
     });
     document.addEventListener('game:done', () => {
       currentNum.value = currentNum.value + 1
-      if(currentNum.value < problems.length) {
+      if (currentNum.value < problems.length) {
         score.value += combo.value;
         if (combo.value < 16) combo.value *= 2;
         return
@@ -73,19 +73,26 @@ export default function GameMain({ problems }: { problems: QandA[] }) {
   const current = problems[currentNum.value];
   // const next = problems.value[(currentNum.value + 1) % problems.value.length]
   return (
-    <div class="GameMain">
-      <div class="header">
-      <div class="score">とくてん: {score} {combo.value > 0 && `[+${combo}]`}</div>
-      <Timer timer={timer} /></div>
-      {state.value === "ready" &&
-        <button type='button' onClick={play}>はじめる</button>
-      }
-      {state.value === "playing" &&
-        <>
-          <div class="question">{current.q}</div>
-          <RomajiField answer={current.a} />
-        </>
-      }
+    <div class={state}>
+      <header>
+        <h1>たいぴすたん</h1>
+      </header>
+      <div class="GameMain">
+        <div class="header">
+          <div class="score">とくてん: {score} {combo.value > 0 && `[+${combo}]`}</div>
+          <Timer timer={timer} /></div>
+        {state.value === "ready" &&
+          <div class="question">
+          <button type='button' onClick={play}>はじめる</button>
+          </div>
+        }
+        {state.value === "playing" &&
+          <>
+            <div class="question">{current.q}</div>
+            <RomajiField answer={current.a} />
+          </>
+        }
+      </div>
     </div>
   );
 }

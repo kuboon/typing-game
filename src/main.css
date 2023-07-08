@@ -1,8 +1,25 @@
-main#main {
+body { margin: 0; }
+
+#app {
   height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: stretch;
+}
+
+#app > div:first-child {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+header {
+  background-color: beige;
+  transition: transform 1s;
+}
+.playing header {
+  transform: scaleY(0);
 }
 
 .GameMain {
@@ -17,6 +34,9 @@ main#main {
   display: flex;
   justify-content: space-evenly;
   width: 100%
+}
+button {
+  font-size: inherit;
 }
 .question {
   margin-right: 2rem;

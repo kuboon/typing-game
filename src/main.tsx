@@ -6,7 +6,7 @@ const App = ({ problems }: { problems: any }) => (
   <>
     <GameMain problems={problems} />
     <details>
-      <summary>キーボード</summary>
+      <summary>きーぼーど</summary>
       <Keyboard />
     </details>
   </>
@@ -27,5 +27,5 @@ function parseCsv(csv: string) {
   }
   problems = problems || await fetch("/csv/todoufuken.csv").then((x) => x.text()).then(parseCsv)
 
-  render(<App problems={problems}/>, document.getElementById("main")!);
+  render(<App problems={problems}/>, document.getElementById("app")!);
 })();

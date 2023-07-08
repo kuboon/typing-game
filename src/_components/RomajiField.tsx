@@ -34,7 +34,7 @@ export default function RomajiField({ answer }: Args) {
   if (match.every((x) => x.state === "ok")) {
     setInput("");
     setHide(true)
-    document.dispatchEvent(new Event('game:complete'));
+    document.dispatchEvent(new Event('game:done'));
   }
   return (
     <div class={['answer', hide ? '' : 'show'].join(' ')}>

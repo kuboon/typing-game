@@ -1,4 +1,3 @@
-// url_test.ts
 import { assertEquals } from "deno/std/testing/asserts.ts";
 import { loadRomajiDict, kanaToRomanChars, matchInput, firstLongestKanaMatch } from "./_engine.ts";
 import { parse } from "deno/std/yaml/parse.ts"
@@ -46,7 +45,14 @@ Deno.test("matchInput", () => {
     { kana: "ー", roman: "-", state: "yet" },
   ]);
 });
-Deno.test("focus", () => {
+Deno.test("xtu", () => {
   assertEquals(firstLongestKanaMatch("っしょん。", "xt"),
     { kana: 'っ', roman: 'xtu', input: 'xt', state: 'in'})
 });
+Deno.test("alphabet", () => {
+  assertEquals(matchInput("ac", "abc"), [
+    { kana: 'a', roman: '', state: 'ok'},
+    { kana: 'b', roman: '', input: 'c', state: 'ng'},
+    { kana: 'c', roman: '', state: 'yet'}
+  ])
+})

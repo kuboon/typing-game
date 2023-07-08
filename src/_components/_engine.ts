@@ -1,4 +1,3 @@
-
 const KanaRomansDict: Record<string, string[]> = {};
 const RomansKanaDict: Record<string, string> = {};
 let LongestKana = 0;
@@ -70,7 +69,31 @@ export function firstLongestKanaMatch(
   }
   return { kana: candidates[0].kana, roman: candidates[0].roman, state: "in", input };
 }
-export function matchInput(roman: string, kana: string): CharUnitWithInput[] {
+export function matchInput(input: string, correct: string): CharUnitWithInput[] {
+  if (input.length === 0 && correct.length === 0) return [];
+  const firstCorrect = correct[0]
+  if (firstCorrect in KanaRomansDict) {
+    return matchKana(input, correct);
+  }
+  const rest = matchInput(input.slice(1), correct.slice(1));
+  if (firstCorrect === input[0]) {
+    return [
+      { kana: firstCorrect, roman: '', state: "ok" },
+      ...rest
+    ];
+  }
+  if (input.length === 0) {
+    return [
+      { kana: firstCorrect, roman: '', state: "yet" },
+      ...rest
+    ];
+  }
+  return [
+    { kana: firstCorrect, roman: '', state: 'ng' , input: input[0] || '' },
+    ...rest
+  ];
+}
+function matchKana(roman: string, kana: string): CharUnitWithInput[] {
   if (kana.length === 0) return [];
   for (let len = 1; len <= LongestRoman && len <= roman.length; len++) {
     const r = roman.slice(0, len);

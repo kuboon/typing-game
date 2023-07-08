@@ -1,6 +1,7 @@
 import RomajiYaml_ from "../_data/romaji.yaml";
-import { useEffect, useState } from "https://esm.sh/preact/hooks?dev";
 import { loadRomajiDict, matchInput } from "./_engine.ts";
+import { Hankaku } from "./_lib.ts";
+import { useEffect, useState } from "https://esm.sh/preact/hooks?dev";
 
 loadRomajiDict(RomajiYaml_);
 
@@ -22,7 +23,7 @@ export default function RomajiField({ answer }: Args) {
       setInput((x: string) => x.slice(0, -1));
       return;
     }
-    if ("abcdefghijklmnopqrstuvwxyz,.".includes(event.key)) {
+    if (Hankaku.includes(event.key)) {
       setInput((x: string) => x + event.key);
     }
   };

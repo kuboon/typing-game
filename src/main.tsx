@@ -16,7 +16,7 @@ function parseCsv(csv: string) {
   if (hash.length > 0) {
     problems_ = await fetch(hash).then((x) => x.text()).then(parseCsv).catch(console.error)
   }
-  problems_ = problems_ || await fetch("/csv/todoufuken.csv").then((x) => x.text()).then(parseCsv)
+  problems_ = problems_ || await fetch("/csv/default.csv").then((x) => x.text()).then(parseCsv)
 
   const settings: GameSettings = {
     title: '',

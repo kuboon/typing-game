@@ -76,7 +76,7 @@ export default function GameMain({ problems, settings }: { problems: QandA[], se
       <header>
         <h1>たいぴすたん</h1>
         <h2>{settings.title}</h2>
-        <a href="/inst/">説明</a>
+        <a href="/inst/">あそびかた</a>
       </header>
       <div class="GameMain">
         <div class="score_block">

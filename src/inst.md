@@ -1,6 +1,26 @@
-# 問題の作り方
+---
+title: あそびかた
+layout: layout.njk
+---
 
-google spreadsheet で問題を作成できます。
+# たいぴすたんのあそびかた
+
+せいげんじかんのうちに たいぴんぐしよう！
+
+れんぞくで せいかいすると どんどんとくてんが あがるよ！
+
+じかんないに すべてのもんだいを とくと のこりじかんも とくてんに！
+
+- [えいご](/#/csv/english.csv) えいごが とくいなひとは ちゃれんじしてね
+- [都道府県](/#/csv/todoufuken.csv)
+- [県庁所在地](/#/csv/kenchou.csv)
+- [百人一首](/#/csv/hyakunin.csv)
+
+# 問題の作り方
+csv ファイルを作成して適当な場所にアップロードし、そのURLを入力することで、自分で作った問題で遊ぶことができます。
+csv やアップロードがよくわからない方は以下の手順を参考にしてください。
+
+# google sheet で問題を作成する
 1列目は問題 (表示されるだけ)
 2列目は入力する答えになります。
 答えはひらがなのみ使用可能です。 `shi` `si` などの表記揺れには自動的に対応します。
@@ -9,18 +29,19 @@ google spreadsheet で問題を作成できます。
 以下のようなURLが表示されるので、それをコピーしてください。
 
 ```
-https://docs.google.com/spreadsheets/d/e/2PACX-1vTKZUKL8O5YSXNzl5OtdUDy6e8mnoyCOHOcSSXs9l9CUOrrHkO-py-Z02YyTDAz1PgKvZOesySHxAh4/pub?gid=0&single=true&output=csv
+https://docs.google.com/spreadsheets/d/e/xxxx/pub?gid=0&single=true&output=csv
 ```
 
 コピーしたら、 https://typing.kbn.one/# の後にそのURLをくっつけてアクセスしてください。
 
 ```
-https://typing.kbn.one/#https://docs.google.com/spreadsheets/d/e/2PACX-1vTKZUKL8O5YSXNzl5OtdUDy6e8mnoyCOHOcSSXs9l9CUOrrHkO-py-Z02YyTDAz1PgKvZOesySHxAh4/pub?gid=0&single=true&output=csv
+https://typing.kbn.one/#https://docs.google.com/spreadsheets/d/e/xxx/pub?gid=0&single=true&output=csv
 ```
+
+プレイ中にURLを変更してもすぐには切り替わりません。F5キー等でリロードしてください。
 
 このURLをブックマークしたり、SNSにシェアすることが出来ます。
 
-※注意 CSV のURLへのアクセス権限を持った方しか開くことはできません。
 
 ## 設定値
 1列目が : で始まる行は2列目が設定値として扱われます。

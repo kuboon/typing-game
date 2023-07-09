@@ -1,8 +1,13 @@
 import { assertEquals } from "deno/std/testing/asserts.ts";
-import { loadRomajiDict, kanaToRomanChars, matchInput, firstLongestKanaMatch } from "./_engine.ts";
-import { parse } from "deno/std/yaml/parse.ts"
-const RomajiYaml_ = parse(Deno.readTextFileSync('./src/_data/romaji.yaml'))
-loadRomajiDict(RomajiYaml_ as any)
+import {
+  firstLongestKanaMatch,
+  kanaToRomanChars,
+  loadRomajiDict,
+  matchInput,
+} from "./_engine.ts";
+import { parse } from "deno/std/yaml/parse.ts";
+const RomajiYaml_ = parse(Deno.readTextFileSync("./src/_data/romaji.yaml"));
+loadRomajiDict(RomajiYaml_ as any);
 
 Deno.test("kanaToRomanChars", () => {
   assertEquals(kanaToRomanChars("あかさ"), [
@@ -46,19 +51,36 @@ Deno.test("matchInput", () => {
   ]);
 });
 Deno.test("xtu", () => {
-  assertEquals(firstLongestKanaMatch("っしょん。", "xt"),
-    { kana: 'っ', roman: 'xtu', input: 'xt', state: 'in'})
+  assertEquals(firstLongestKanaMatch("っしょん。", "xt"), {
+    kana: "っ",
+    roman: "xtu",
+    input: "xt",
+    state: "in",
+  });
 });
 Deno.test("alphabet", () => {
   assertEquals(matchInput("ac", "abc"), [
-    { kana: 'a', roman: '', state: 'ok'},
-    { kana: 'b', roman: '', input: 'c', state: 'ng'},
-    { kana: 'c', roman: '', state: 'yet'}
-  ])
-})
-Deno.test({name: "みえ", fn() {
-  assertEquals(matchInput("mie", "みえ"), [
-    { kana: 'み', roman: 'mi', state: 'ok'},
-    { kana: 'え', roman: 'e', state: 'ok'}
-  ])
-}})
+    { kana: "a", roman: "", state: "ok" },
+    { kana: "b", roman: "", input: "c", state: "ng" },
+    { kana: "c", roman: "", state: "yet" },
+  ]);
+});
+Deno.test({
+  name: "みえ",
+  fn() {
+    assertEquals(matchInput("mie", "みえ"), [
+      { kana: "み", roman: "mi", state: "ok" },
+      { kana: "え", roman: "e", state: "ok" },
+    ]);
+  },
+});
+Deno.test({
+  name: "paserr",
+  fn() {
+    assertEquals(matchInput("paserr", "ぱせり"), [
+      { kana: "ぱ", roman: "pa", state: "ok" },
+      { kana: "せ", roman: "se", state: "ok" },
+      { kana: "り", roman: "ri", state: "ng", input: "rr" },
+    ]);
+  },
+});

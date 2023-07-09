@@ -53,6 +53,6 @@ site.use(sheets());
 site.use(lightningCss());
 
 site.copy("index.html");
-site.copy("csv")
+site.copy("csv");
 
 export default site;

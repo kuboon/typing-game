@@ -8,32 +8,33 @@ type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
 
 function Timer({ timer }: { timer: Signal<number> }) {
-  const timerId = useSignal<null | number>(null)
-  document.addEventListener('game:play', () => {
+  const timerId = useSignal<null | number>(null);
+  document.addEventListener("game:play", () => {
     timerId.value = setInterval(() => {
       timer.value--;
       if (timer.value <= 0 && timerId.value) {
         clearInterval(timerId.value);
-        document.dispatchEvent(new Event('game:timeup'));
+        document.dispatchEvent(new Event("game:timeup"));
       }
     }, 1000);
   });
-  document.addEventListener('game:over', () => {
+  document.addEventListener("game:over", () => {
     if (timerId.value) {
       clearInterval(timerId.value);
       timerId.value = null;
     }
   });
-  return <div class='timer'>のこり: {timer} びょう</div>
+  return <div class="timer">のこり: {timer} びょう</div>;
 }
 
-export default function GameMain({ problems, settings }: { problems: QandA[], settings: GameSettings }) {
+export default function GameMain(
+  { problems, settings }: { problems: QandA[]; settings: GameSettings },
+) {
   const state = useSignal("ready" as GameMainState);
   const currentNum = useSignal(0);
   const score = useSignal(0);
   const combo = useSignal(0);
   const timer = useSignal(settings.timelimit);
-
 
   const play = () => {
     currentNum.value = 0;
@@ -41,32 +42,32 @@ export default function GameMain({ problems, settings }: { problems: QandA[], se
     combo.value = 1;
     timer.value = settings.timelimit;
     state.value = "playing";
-    document.dispatchEvent(new Event('game:play'));
+    document.dispatchEvent(new Event("game:play"));
   };
   const gameover = () => {
     state.value = "ready";
     combo.value = 0;
-    document.dispatchEvent(new Event('game:over'));
-  }
+    document.dispatchEvent(new Event("game:over"));
+  };
 
   useEffect(() => {
-    document.addEventListener('game:timeup', gameover);
-    document.addEventListener('game:miss', () => {
+    document.addEventListener("game:timeup", gameover);
+    document.addEventListener("game:miss", () => {
       combo.value = 1;
       const current = problems[currentNum.value];
       if (problems.at(-1) != current) {
         problems.push(current);
       }
     });
-    document.addEventListener('game:done', () => {
-      currentNum.value = currentNum.value + 1
+    document.addEventListener("game:done", () => {
+      currentNum.value = currentNum.value + 1;
       if (currentNum.value < problems.length) {
         score.value += combo.value;
         if (combo.value < 16) combo.value *= 2;
-        return
+        return;
       }
-      score.value += timer.value
-      gameover()
+      score.value += timer.value;
+      gameover();
     });
   }, []);
   const current = problems[currentNum.value];
@@ -80,19 +81,24 @@ export default function GameMain({ problems, settings }: { problems: QandA[], se
       </header>
       <div class="GameMain">
         <div class="score_block">
-          <div class="score">とくてん: {score} {combo.value > 0 && `[+${combo}]`}</div>
-          <Timer timer={timer} /></div>
-        {state.value === "ready" &&
-          <div class="question">
-          <button type='button' onClick={play}>はじめる</button>
+          <div class="score">
+            とくてん: {score} {combo.value > 0 && `[+${combo}]`}
           </div>
-        }
+          <Timer timer={timer} />
+        </div>
+        {state.value === "ready" &&
+          (
+            <div class="question">
+              <button type="button" onClick={play}>はじめる</button>
+            </div>
+          )}
         {state.value === "playing" &&
-          <>
-            <div class="question">{current.q}</div>
-            <RomajiField answer={current.a} />
-          </>
-        }
+          (
+            <>
+              <div class="question">{current.q}</div>
+              <RomajiField answer={current.a} />
+            </>
+          )}
       </div>
     </div>
   );

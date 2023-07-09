@@ -67,11 +67,16 @@ export default function GameMain(
         return;
       }
       score.value += timer.value;
+      currentNum.value = 0;
       gameover();
     });
   }, []);
   const current = problems[currentNum.value];
-  // const next = problems.value[(currentNum.value + 1) % problems.value.length]
+  const question = current.q.match(/^https?:/) ? <img src={current.q} /> : current.q;
+  const next = problems[currentNum.value + 1]
+  if(next && next.q.match(/^https?:/)) {
+    new Image().src = next.q; // preload
+  }
   return (
     <div class={state}>
       <header>
@@ -81,10 +86,10 @@ export default function GameMain(
       </header>
       <div class="GameMain">
         <div class="score_block">
+          <Timer timer={timer} />
           <div class="score">
             とくてん: {score} {combo.value > 0 && `[+${combo}]`}
           </div>
-          <Timer timer={timer} />
         </div>
         {state.value === "ready" &&
           (
@@ -95,7 +100,7 @@ export default function GameMain(
         {state.value === "playing" &&
           (
             <>
-              <div class="question">{current.q}</div>
+              <div class="question">{question}</div>
               <RomajiField answer={current.a} />
             </>
           )}

@@ -1,5 +1,5 @@
 html {
-  font-size: 10px;
+  font-size: 2vw;
 }
 body { margin: 0; }
 
@@ -54,11 +54,37 @@ header :last-child {
   justify-content: space-evenly;
   width: 100%
 }
+
+@keyframes score_get {
+  from {
+    font-size: 3rem;
+    bottom: 50vh;
+    left: 70vw;
+    opacity: 0;
+  }
+  10% {
+    font-size: 4rem;
+    opacity: 1;
+  }
+  to {
+    font-size: 1rem;
+    bottom: 60vh;
+    left: 75vw;
+    opacity: 0;
+  }
+
+}
+.score_get {
+  position: absolute;
+  animation: score_get 2s ease-in-out;
+}
+
 button {
   font-size: inherit;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 .question {
-  margin-right: 2rem;
   overflow-y: clip;
 }
 .question img {

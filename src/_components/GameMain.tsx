@@ -25,6 +25,16 @@ function Timer({ timer }: { timer: Signal<number> }) {
   return <div class="timer">のこり: {timer} びょう</div>;
 }
 
+function addScoreGetAnimation(pt: number) {
+  const el = document.createElement("div");
+  el.classList.add("score_get");
+  el.textContent = `+${pt}`;
+  document.querySelector(".question").appendChild(el);
+  setTimeout(() => {
+    el.remove();
+  }, 2000);
+}
+
 export default function GameMain(
   { problems, settings }: { problems: QandA[]; settings: GameSettings },
 ) {
@@ -61,6 +71,7 @@ export default function GameMain(
       currentNum.value = currentNum.value + 1;
       if (currentNum.value < problems.length) {
         score.value += combo.value;
+        addScoreGetAnimation(combo.value);
         if (combo.value < 16) combo.value *= 2;
         return;
       }
@@ -85,9 +96,7 @@ export default function GameMain(
       <div class="GameMain">
         <div class="score_block">
           <Timer timer={timer} />
-          <div class="score">
-            とくてん: {score} {combo.value > 0 && `[+${combo}]`}
-          </div>
+          <div class="score">とくてん: {score}</div>
         </div>
         {state.value === "ready" &&
           (

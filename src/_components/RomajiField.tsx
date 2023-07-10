@@ -1,7 +1,7 @@
 import RomajiYaml_ from "../_data/romaji.yaml";
 import { loadRomajiDict, matchInput } from "./_engine.ts";
 import { Hankaku } from "./_lib.ts";
-import { useEffect, useState } from "https://esm.sh/preact/hooks?dev";
+import { useEffect, useState } from "../_deps.ts";
 
 loadRomajiDict(RomajiYaml_);
 

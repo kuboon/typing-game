@@ -1,8 +1,6 @@
 import RomajiField from "./RomajiField.tsx";
-import { useEffect } from "https://esm.sh/stable/preact@10.15.1/denonext/hooks.development.js";
-import { useSignal } from "https://esm.sh/@preact/signals?dev";
-import type { Signal } from "https://esm.sh/@preact/signals?dev";
 import { GameSettings } from "./_lib.ts";
+import { h, Signal, useEffect, useSignal } from "../_deps.ts";
 
 type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
@@ -30,8 +28,8 @@ function Timer({ timer }: { timer: Signal<number> }) {
 export default function GameMain(
   { problems, settings }: { problems: QandA[]; settings: GameSettings },
 ) {
-  const state = useSignal("ready" as GameMainState);
   const currentNum = useSignal(0);
+  const state = useSignal<GameMainState>("ready");
   const score = useSignal(0);
   const combo = useSignal(0);
   const timer = useSignal(settings.timelimit);

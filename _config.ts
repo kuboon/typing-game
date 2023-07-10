@@ -4,6 +4,7 @@ import esbuild from "https://raw.githubusercontent.com/kuboon/lume/fix-esbuild-p
 import lightningCss from "lume/plugins/lightningcss.ts";
 import metas from "lume/plugins/metas.ts";
 import sheets from "lume/plugins/sheets.ts";
+import sourceMaps from "lume/plugins/source_maps.ts";
 import { isAbsolute, join } from "deno/std/path/posix.ts";
 import { parse } from "deno/std/yaml/parse.ts";
 
@@ -51,6 +52,7 @@ site.use(esbuild({
 site.use(metas());
 site.use(sheets());
 site.use(lightningCss());
+site.use(sourceMaps());
 
 site.copy("index.html");
 site.copy("csv");

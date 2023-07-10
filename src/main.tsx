@@ -1,7 +1,7 @@
 import GameMain from "./_components/GameMain.tsx";
 import Keyboard from "./_components/Keyboard.tsx";
-import { render } from "https://esm.sh/preact?dev";
 import { GameSettings } from "./_components/_lib.ts";
+import { render } from "./_deps.ts";
 
 function parseCsv(csv: string) {
   return csv.split("\n")

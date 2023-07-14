@@ -29,7 +29,7 @@ function addScoreGetAnimation(pt: number) {
   const el = document.createElement("div");
   el.classList.add("score_get");
   el.textContent = `+${pt}`;
-  document.querySelector(".question").appendChild(el);
+  document.body.appendChild(el);
   setTimeout(() => {
     el.remove();
   }, 2000);

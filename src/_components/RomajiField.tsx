@@ -54,7 +54,7 @@ export default function RomajiField({ answer }: Args) {
     elem?.classList.add("hint");
   }
   return (
-    <div class={["answer", hide ? "" : "show"].join(" ")}>
+    <div class={["answer", hide ? "" : "show"].join(" ")} key={answer}>
       {match.map(({ kana, roman, state, input }) => (
         <ruby class={state}>
           {kana}

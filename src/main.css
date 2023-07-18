@@ -116,6 +116,7 @@ button {
 }
 .key.hint {
   background: aqua;
+  transition: background-color 1s ease-in-out 2s;
 }
 
 ruby.yet {

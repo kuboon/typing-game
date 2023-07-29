@@ -119,13 +119,21 @@ button {
   transition: background-color 1s ease-in-out 2s;
 }
 
+@keyframes next_key {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 ruby.yet {
   color: gray;
-  opacity: 0;
-}
-.show ruby.yet {
-  opacity: 1;
-  transition: opacity 1s ease-in-out 2s;
+  animation: next_key 4s;
 }
 
 ruby.in {

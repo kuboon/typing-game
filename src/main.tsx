@@ -25,6 +25,7 @@ function parseCsv(csv: string) {
     title: "",
     timelimit: 60,
     shuffle: false,
+    voice: false,
   };
   problems_.forEach(({ q, a }) => {
     if (!q.startsWith(":")) return;
@@ -37,6 +38,9 @@ function parseCsv(csv: string) {
         break;
       case ":shuffle":
         settings.shuffle = a === "true";
+        break;
+      case ":voice":
+        settings.voice = a === "true";
         break;
     }
   });

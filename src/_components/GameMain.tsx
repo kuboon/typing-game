@@ -108,7 +108,7 @@ export default function GameMain(
           (
             <>
               <div class="question">{question}</div>
-              <RomajiField answer={current.a} />
+              <RomajiField answer={current.a} key={current.a} />
             </>
           )}
       </div>

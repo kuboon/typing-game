@@ -31,6 +31,13 @@ export default function Keyboard() {
     </div>
   );
 }
+export function hint(id: string) {
+  document.querySelectorAll(".key").forEach((elem) =>
+    elem.classList.remove("hint")
+  );
+  const elem = document.getElementById(id);
+  elem?.classList.add("hint");
+}
 
 document.addEventListener("keydown", (e) => {
   const key = document.getElementById(`key-${e.key}`);

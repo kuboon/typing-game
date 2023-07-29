@@ -1,3 +1,3 @@
 export { useEffect, useState } from 'preact/hooks'
 export { h, render } from 'preact'
-export { Signal, useSignal } from '@preact/signals'
+export { Signal, signal, useSignal } from '@preact/signals'

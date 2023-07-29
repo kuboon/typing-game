@@ -1,60 +1,49 @@
 import RomajiYaml_ from "../_data/romaji.yaml";
 import { loadRomajiDict, matchInput } from "./_engine.ts";
 import { Hankaku } from "./_lib.ts";
-import { useEffect, useState } from "../_deps.ts";
+import { useEffect, signal } from "../_deps.ts";
+import { hint } from "./Keyboard.tsx";
 
 loadRomajiDict(RomajiYaml_);
 
 type Args = { answer: string };
+const input = signal("");
+document.addEventListener("keydown", (event: KeyboardEvent) => {
+  if (event.code === "Backspace") {
+    input.value = input.value.slice(0, -1);
+    return;
+  }
+  if (Hankaku.includes(event.key)) {
+    input.value = input.value + event.key;
+  }
+});
 
 export default function RomajiField({ answer }: Args) {
-  const [input, setInput] = useState("");
-  const [hide, setHide] = useState(true);
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    const utterThis = new SpeechSynthesisUtterance(answer);
+    speechSynthesis.speak(utterThis);
   }, []);
-
-  if (hide) setTimeout(() => setHide(false), 1);
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.code === "Backspace") {
-      setInput((x: string) => x.slice(0, -1));
-      return;
-    }
-    if (Hankaku.includes(event.key)) {
-      setInput((x: string) => x + event.key);
-    }
-  };
-  const match = matchInput(input, answer);
+  const match = matchInput(input.value, answer);
   if (match.some((x) => x.state === "ng")) {
     document.dispatchEvent(new Event("game:miss"));
   }
   if (match.every((x) => x.state === "ok")) {
-    setInput("");
-    setHide(true);
+    input.value = "";
     document.dispatchEvent(new Event("game:done"));
   }
   const nextUnit = match.find((x) => x.state !== "ok");
   if (nextUnit) {
-    let id;
     if (nextUnit.state == "ng") {
-      id = "Backspace";
+      hint("Backspace");
     } else {
       const inputLength = nextUnit.input?.length || 0;
-      const nextChar = nextUnit.roman.substring(inputLength, inputLength + 1);
-      console.log({ inputLength, nextChar });
-      id = `key-${nextChar}`;
+      console.log({nextUnit})
+      const nextChar = nextUnit.roman.substring(inputLength, inputLength + 1) || nextUnit.kana;
+      hint(`key-${nextChar}`);
     }
-    document.querySelectorAll(".key").forEach((elem) =>
-      elem.classList.remove("hint")
-    );
-    const elem = document.getElementById(id);
-    elem?.classList.add("hint");
   }
   return (
-    <div class={["answer", hide ? "" : "show"].join(" ")} key={answer}>
+    <div class="answer">
       {match.map(({ kana, roman, state, input }) => (
         <ruby class={state}>
           {kana}

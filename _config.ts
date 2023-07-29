@@ -1,5 +1,5 @@
 import lume from "lume/mod.ts";
-import esbuild from "https://raw.githubusercontent.com/kuboon/lume/fix-esbuild-plugin/plugins/esbuild.ts";
+import esbuild from "lume/plugins/esbuild.ts";
 // import jsx_preact from "lume/plugins/jsx_preact.ts";
 import lightningCss from "lume/plugins/lightningcss.ts";
 import metas from "lume/plugins/metas.ts";

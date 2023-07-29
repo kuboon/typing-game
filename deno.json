@@ -9,11 +9,11 @@
     "serve": "deno task lume -s"
   },
   "imports": {
-    "lume/": "https://deno.land/x/lume@v1.18.1/",
+    "lume/": "https://deno.land/x/lume@v1.18.3/",
     "deno/std/": "https://deno.land/std@0.192.0/",
     "preact": "https://esm.sh/preact@10.16.0",
-    "preact/jsx-runtime": "https://esm.sh/preact/jsx-runtime",
+    "preact/jsx-runtime": "https://esm.sh/preact@10.16.0/jsx-runtime",
     "preact/hooks": "https://esm.sh/preact/hooks?deps=preact@10.16.0",
-    "@preact/signals": "https://esm.sh/@preact/signals?deps=preact@10.16.0"
+    "@preact/signals": "https://esm.sh/@preact/signals@1.1.5?deps=preact@10.16.0"
   }
 }

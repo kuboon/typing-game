@@ -5,4 +5,5 @@ export type GameSettings = {
   title: string;
   timelimit: number;
   shuffle: boolean;
+  voice: boolean;
 };

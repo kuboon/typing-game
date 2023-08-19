@@ -55,6 +55,36 @@ header :last-child {
   width: 100%
 }
 
+#share {
+  display: none;
+  padding-left: 0.5rem;
+  fill: magenta;
+}
+#share.show {
+  display: inline;
+  animation: share 1s infinite alternate;
+}
+
+@keyframes share {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+dialog.share_dialog {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.share_dialog input {
+  width: 100%;
+  font-size: 2vw;
+}
+
 @keyframes score_get {
   from {
     font-size: 3rem;
@@ -79,7 +109,7 @@ header :last-child {
   animation: score_get 2s ease-in-out;
 }
 
-button {
+button.play {
   font-size: inherit;
   border-radius: 1rem;
   padding: 1rem;

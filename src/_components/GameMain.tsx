@@ -79,13 +79,26 @@ export default function GameMain(
       currentNum.value = 0;
       gameover();
     });
+    document.getElementById("share")?.addEventListener("click", async () => {
+      let url = `https://ogp.kbn.one/typistan?score=${score.value}`;
+      if (settings.title) {
+        url = url + `&title=${encodeURIComponent(settings.title)}`;
+      }
+      if (location.hash.length > 1) {
+        url = url + `&csv=${location.hash.slice(1)}`;
+      }
+      await shareUrl(url);
+    });
   }, []);
   const current = problems[currentNum.value];
-  const question = current.q.match(/^https?:/) ? <img src={current.q} /> : current.q;
-  const next = problems[currentNum.value + 1]
-  if(next && next.q.match(/^https?:/)) {
+  const question = current.q.match(/^https?:/)
+    ? <img src={current.q} />
+    : current.q;
+  const next = problems[currentNum.value + 1];
+  if (next && next.q.match(/^https?:/)) {
     new Image().src = next.q; // preload
   }
+  const showShareIcon = score.value > 0 && state.value == "ready";
   return (
     <div class={state}>
       <header>
@@ -96,22 +109,60 @@ export default function GameMain(
       <div class="GameMain">
         <div class="score_block">
           <Timer timer={timer} />
-          <div class="score">とくてん: {score}</div>
+          <div class="score">
+            とくてん: {score}
+            <span id="share" class={showShareIcon ? "show" : ""}>
+              <a href='#'>{share_icon}</a>
+            </span>
+          </div>
         </div>
         {state.value === "ready" &&
           (
             <div class="question">
-              <button type="button" onClick={play}>はじめる</button>
+              <button class="play" type="button" onClick={play}>
+                はじめる
+              </button>
             </div>
           )}
         {state.value === "playing" &&
           (
             <>
               <div class="question">{question}</div>
-              <RomajiField answer={current.a} key={current.a} />
+              <RomajiField
+                answer={current.a}
+                key={current.a}
+                voice={settings.voice}
+              />
             </>
           )}
       </div>
     </div>
   );
+}
+
+// <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+const share_icon = (
+  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+    <path d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
+  </svg>
+);
+async function shareUrl(url: string) {
+  if (navigator.share) {
+    await navigator.share({ url });
+    return;
+  }
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(url);
+    alert("URLをコピーしました。");
+    return;
+  }
+  const dialog = document.createElement("dialog");
+  dialog.classList.add("share_dialog");
+  dialog.open = true;
+  dialog.innerHTML =
+    `<form>このURLをコピーしてください。<button formmethod="dialog">x</button><br><input type="text" value="${url}"></form>`;
+  dialog.addEventListener("close", () => {
+    dialog.remove();
+  });
+  document.body.appendChild(dialog);
 }

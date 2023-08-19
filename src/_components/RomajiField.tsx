@@ -1,12 +1,12 @@
 import RomajiYaml_ from "../_data/romaji.yaml";
 import { loadRomajiDict, matchInput } from "./_engine.ts";
 import { Hankaku } from "./_lib.ts";
-import { useEffect, signal } from "../_deps.ts";
+import { signal, useEffect } from "../_deps.ts";
 import { hint } from "./Keyboard.tsx";
 
 loadRomajiDict(RomajiYaml_);
 
-type Args = { answer: string };
+type Args = { answer: string; voice: boolean };
 const input = signal("");
 document.addEventListener("keydown", (event: KeyboardEvent) => {
   if (event.code === "Backspace") {
@@ -18,11 +18,13 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
   }
 });
 
-export default function RomajiField({ answer }: Args) {
-  useEffect(() => {
-    const utterThis = new SpeechSynthesisUtterance(answer);
-    speechSynthesis.speak(utterThis);
-  }, []);
+export default function RomajiField({ answer, voice }: Args) {
+  if (voice) {
+    useEffect(() => {
+      const utterThis = new SpeechSynthesisUtterance(answer);
+      speechSynthesis.speak(utterThis);
+    }, []);
+  }
   const match = matchInput(input.value, answer);
   if (match.some((x) => x.state === "ng")) {
     document.dispatchEvent(new Event("game:miss"));
@@ -37,8 +39,8 @@ export default function RomajiField({ answer }: Args) {
       hint("Backspace");
     } else {
       const inputLength = nextUnit.input?.length || 0;
-      console.log({nextUnit})
-      const nextChar = nextUnit.roman.substring(inputLength, inputLength + 1) || nextUnit.kana;
+      const nextChar = nextUnit.roman.substring(inputLength, inputLength + 1) ||
+        nextUnit.kana;
       hint(`key-${nextChar}`);
     }
   }

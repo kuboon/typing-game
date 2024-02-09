@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy content to Pages
+name: Deploy static content to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -29,12 +29,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: denoland/setup-deno@v1
+      - name: Setup Deno environment
+        uses: denoland/setup-deno@v1
         with:
-          deno-version: vx.x.x
+          deno-version: v1.x
       - name: Checkout
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
       - name: cache deno installation and deno.land dependencies
         uses: actions/cache@v3
         with:
@@ -42,16 +42,15 @@ jobs:
           path: |
             ~/.deno
             ~/.cache/deno
-
       - run: deno test --allow-read=src --no-check
-      - run: deno task build
+      - name: lume build
+        run: deno task build --location=https://typing.kbn.one
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
-          # Upload entire repository
-          path: 'dist'
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2

@@ -9,7 +9,7 @@
     "serve": "deno task lume -s"
   },
   "imports": {
-    "lume/": "https://deno.land/x/lume@v1.18.4/",
+    "lume/": "https://deno.land/x/lume@v2.0.3/",
     "deno/std/": "https://deno.land/std@0.198.0/",
     "preact": "https://esm.sh/preact@10.17.0",
     "preact/": "https://esm.sh/preact@10.17.0/",

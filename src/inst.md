@@ -1,6 +1,6 @@
 ---
 title: あそびかた
-layout: layout.njk
+layout: layout.vto
 ---
 
 # たいぴすたんのあそびかた

@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "types": [
+      "lume/types.ts"
+    ]
   },
   "tasks": {
-    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A -",
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",
     "build": "deno task lume",
     "serve": "deno task lume -s"
   },
   "imports": {
-    "lume/": "https://deno.land/x/lume@v2.0.3/",
+    "lume/": "https://deno.land/x/lume@v2.2.1/",
     "deno/std/": "https://deno.land/std@0.198.0/",
     "preact": "https://esm.sh/preact@10.17.0",
     "preact/": "https://esm.sh/preact@10.17.0/",

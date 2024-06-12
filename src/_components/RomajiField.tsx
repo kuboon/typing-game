@@ -31,6 +31,7 @@ export default function RomajiField({ answer, voice }: Args) {
   }
   if (match.every((x) => x.state === "ok")) {
     input.value = "";
+    match.length = 0;
     document.dispatchEvent(new Event("game:done"));
   }
   const nextUnit = match.find((x) => x.state !== "ok");

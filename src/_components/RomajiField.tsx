@@ -19,6 +19,9 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
 });
 
 export default function RomajiField({ answer, voice }: Args) {
+  useEffect(() => {
+    input.value = "";
+  }, []);
   if (voice) {
     useEffect(() => {
       const utterThis = new SpeechSynthesisUtterance(answer);

@@ -6,21 +6,31 @@ type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
 
 function Timer({ timer }: { timer: Signal<number> }) {
+  if (timer.value == 0) return "";
   const timerId = useSignal<null | number>(null);
-  document.addEventListener("game:play", () => {
-    timerId.value = setInterval(() => {
-      timer.value--;
-      if (timer.value <= 0 && timerId.value) {
+  useEffect(() => {
+    const onPlay = () => {
+      timerId.value = setInterval(() => {
+        timer.value--;
+        if (timer.value <= 0 && timerId.value) {
+          clearInterval(timerId.value);
+          document.dispatchEvent(new Event("game:timeup"));
+        }
+      }, 1000);
+    };
+    document.addEventListener("game:play", onPlay);
+
+    const onOver = () => {
+      if (timerId.value) {
         clearInterval(timerId.value);
-        document.dispatchEvent(new Event("game:timeup"));
+        timerId.value = null;
       }
-    }, 1000);
-  });
-  document.addEventListener("game:over", () => {
-    if (timerId.value) {
-      clearInterval(timerId.value);
-      timerId.value = null;
-    }
+    };
+    document.addEventListener("game:over", onOver);
+    return () => {
+      document.removeEventListener("game:play", onPlay);
+      document.removeEventListener("game:over", onOver);
+    };
   });
   return <div class="timer">のこり: {timer} びょう</div>;
 }
@@ -60,14 +70,15 @@ export default function GameMain(
 
   useEffect(() => {
     document.addEventListener("game:timeup", gameover);
-    document.addEventListener("game:miss", () => {
+    const onMiss = () => {
       combo.value = 1;
       const current = problems[currentNum.value];
       if (problems.at(-1) != current) {
         problems.push(current);
       }
-    });
-    document.addEventListener("game:done", () => {
+    };
+    document.addEventListener("game:miss", onMiss);
+    const onDone = () => {
       currentNum.value = currentNum.value + 1;
       if (currentNum.value < problems.length) {
         score.value += combo.value;
@@ -78,8 +89,10 @@ export default function GameMain(
       score.value += timer.value;
       currentNum.value = 0;
       gameover();
-    });
-    document.getElementById("share")?.addEventListener("click", async () => {
+    };
+    document.addEventListener("game:done", onDone);
+
+    const onShare = async () => {
       let url = `https://ogp.kbn.one/typistan?score=${score.value}`;
       if (settings.title) {
         url = url + `&title=${encodeURIComponent(settings.title)}`;
@@ -88,7 +101,15 @@ export default function GameMain(
         url = url + `&csv=${location.hash.slice(1)}`;
       }
       await shareUrl(url);
-    });
+    };
+    document.getElementById("share")?.addEventListener("click", onShare);
+
+    return () => {
+      document.removeEventListener("game:timeup", gameover);
+      document.removeEventListener("game:miss", onMiss);
+      document.removeEventListener("game:done", onDone);
+      document.getElementById("share")?.removeEventListener("click", onShare);
+    };
   }, []);
   const current = problems[currentNum.value];
   const question = current.q.match(/^https?:/)
@@ -112,7 +133,7 @@ export default function GameMain(
           <div class="score">
             とくてん: {score}
             <span id="share" class={showShareIcon ? "show" : ""}>
-              <a href='#'>{share_icon}</a>
+              <a href="#">{share_icon}</a>
             </span>
           </div>
         </div>

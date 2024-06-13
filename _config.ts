@@ -35,7 +35,7 @@ export const yamlPlugin = {
 };
 
 const site = lume({
-  src: "src"
+  src: "src",
 });
 
 site.use(esbuild({

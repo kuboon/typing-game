@@ -1,4 +1,4 @@
-import Keyboards from "../_data/keyboards.yaml";
+import Keyboards from "../_data/keyboard.json" with { type: "json" };
 
 function HalfCols({ count }: { count: number }) {
   return (
@@ -22,7 +22,7 @@ export default function Keyboard() {
               if (key == "\\") {
                 return <div class="key" id="Backspace">けす</div>;
               }
-              return <div class="key" id={`key-${key}`}>{key}</div>;
+              return <div class="key" id={`key-${key.toLowerCase()}`}>{key}</div>;
             })}
             <HalfCols count={i} />
           </div>

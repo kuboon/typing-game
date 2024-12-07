@@ -5,14 +5,15 @@ import lightningCss from "lume/plugins/lightningcss.ts";
 import metas from "lume/plugins/metas.ts";
 import sheets from "lume/plugins/sheets.ts";
 import sourceMaps from "lume/plugins/source_maps.ts";
-import { isAbsolute, join } from "deno/std/path/posix.ts";
-import { parse } from "deno/std/yaml/parse.ts";
+import { isAbsolute, join } from "@std/path/posix";
+import { parse } from "@std/yaml/parse";
+import type { PluginBuild } from "esbuild/mod.d.ts"
 
 export const yamlPlugin = {
   name: "yaml",
-  setup(build: any) {
+  setup(build: PluginBuild) {
     // resolve .yaml and .yml files
-    build.onResolve({ filter: /\.(yml|yaml)$/ }, (args: any) => {
+    build.onResolve({ filter: /\.(yml|yaml)$/ }, (args) => {
       return {
         path: isAbsolute(args.path)
           ? args.path
@@ -22,7 +23,7 @@ export const yamlPlugin = {
     });
 
     // load files with "yaml" namespace
-    build.onLoad({ filter: /yaml$/, namespace: "yaml" }, async (args: any) => {
+    build.onLoad({ filter: /yaml$/, namespace: "yaml" }, async (args) => {
       const yamlContent = await Deno.readTextFileSync(args.path);
       const parsed = parse(yamlContent);
 

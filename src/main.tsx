@@ -6,8 +6,7 @@ import { render } from "./_deps.ts";
 function parseCsv(csv: string) {
   return csv.split("\n")
     .map((x) => x.split(","))
-    .filter(([q, a]) => q && a && a.length > 0)
-    .map(([q, a]) => ({ q, a: a.trim() }));
+    .map(([q, a]) => ({ q, a: a ? a.trim() : q }));
 }
 
 (async () => {
@@ -50,7 +49,7 @@ function parseCsv(csv: string) {
   const App = (
     <>
       <GameMain problems={problems} settings={settings} />
-      <details>
+      <details open>
         <summary>きーぼーど</summary>
         <Keyboard />
       </details>

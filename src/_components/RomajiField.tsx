@@ -1,4 +1,4 @@
-import RomajiYaml_ from "../_data/romaji.yaml";
+import RomajiYaml_ from "../_data/romaji.yaml" with {type: 'json'};
 import { loadRomajiDict, matchInput } from "./_engine.ts";
 import { Hankaku } from "./_lib.ts";
 import { signal, useEffect } from "../_deps.ts";

@@ -116,6 +116,8 @@ button.play {
 }
 .question {
   overflow-y: clip;
+  text-align: center;
+  width: 100%;
 }
 .question img {
   height: 100%;
@@ -123,6 +125,8 @@ button.play {
 
 .answer {
   font-size: 3rem;
+  text-align: center;
+  width: 100%;
 }
 
 .keyboard .row {

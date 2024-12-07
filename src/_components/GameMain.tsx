@@ -1,12 +1,12 @@
 import RomajiField from "./RomajiField.tsx";
 import { GameSettings } from "./_lib.ts";
-import { h, Signal, useEffect, useSignal } from "../_deps.ts";
+import { Signal, useEffect, useSignal } from "../_deps.ts";
 
 type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
 
 function Timer({ timer }: { timer: Signal<number> }) {
-  if (timer.value == 0) return "";
+  if (timer.value == 0) return <></>;
   const timerId = useSignal<null | number>(null);
   useEffect(() => {
     const onPlay = () => {
@@ -151,7 +151,6 @@ export default function GameMain(
               <div class="question">{question}</div>
               <RomajiField
                 answer={current.a}
-                key={current.a}
                 voice={settings.voice}
               />
             </>

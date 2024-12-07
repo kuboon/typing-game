@@ -2,6 +2,7 @@ import GameMain from "./_components/GameMain.tsx";
 import Keyboard from "./_components/Keyboard.tsx";
 import { GameSettings } from "./_components/_lib.ts";
 import { render } from "./_deps.ts";
+import { PCG } from "./_lib/pcg.ts";
 
 function parseCsv(csv: string) {
   return csv.split("\n")
@@ -44,8 +45,20 @@ function parseCsv(csv: string) {
     }
   });
 
+  function shuffleArray(array: unknown[], rng: PCG) {
+    for (let i = array.length - 1; i > 1; i--) {
+      const j = rng.nextInt(i);
+      console.log({i, j});
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
   const problems = problems_.filter(({ q }) => !q.startsWith(":"));
-  if (settings.shuffle) problems.sort(() => Math.random() - 0.5);
+  if (settings.shuffle) {
+    const today = Math.floor(Date.now() / 86400000);
+    const rng = new PCG(BigInt(today));
+    shuffleArray(problems, rng);
+  }
   const App = (
     <>
       <GameMain problems={problems} settings={settings} />

@@ -157,7 +157,7 @@ button.play {
   from {
     opacity: 0;
   }
-  50% {
+  80% {
     opacity: 0;
   }
   to {
@@ -165,9 +165,13 @@ button.play {
   }
 }
 
-ruby.yet {
+ruby.next {
   color: gray;
-  animation: next_key 4s;
+  animation: next_key 2s;
+}
+
+ruby.yet {
+  opacity: 0;
 }
 
 ruby.in {

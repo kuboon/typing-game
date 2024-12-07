@@ -1,11 +1,11 @@
-import { assertEquals } from "deno/std/testing/asserts.ts";
+import { assertEquals } from "@std/assert";
 import {
   firstLongestKanaMatch,
   kanaToRomanChars,
   loadRomajiDict,
   matchInput,
 } from "./_engine.ts";
-import { parse } from "deno/std/yaml/parse.ts";
+import { parse } from "@std/yaml/parse";
 const RomajiYaml_ = parse(Deno.readTextFileSync("./src/_data/romaji.yaml"));
 loadRomajiDict(RomajiYaml_ as any);
 

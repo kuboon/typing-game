@@ -1,4 +1,4 @@
-import RomajiYaml_ from "../_data/romaji.yaml" with {type: 'json'};
+import RomajiYaml_ from "../_data/romaji.yaml" with { type: "json" };
 import { loadRomajiDict, matchInput } from "./_engine.ts";
 import { Hankaku } from "./_lib.ts";
 import { signal, useEffect } from "../_deps.ts";
@@ -31,23 +31,22 @@ export default function RomajiField({ answer, voice }: Args) {
   const match = matchInput(input.value, answer);
   if (match.some((x) => x.state === "ng")) {
     document.dispatchEvent(new Event("game:miss"));
-  }
-  if (match.every((x) => x.state === "ok")) {
+    hint("Backspace");
+  } else if (match.every((x) => x.state === "ok")) {
     input.value = "";
     match.length = 0;
     document.dispatchEvent(new Event("game:done"));
-  }
-  const nextUnit = match.find((x) => x.state !== "ok");
-  if (nextUnit) {
-    if (nextUnit.state == "ng") {
-      hint("Backspace");
-    } else {
+  } else {
+    const nextUnit = match.find((x) => x.state !== "ok");
+    if (nextUnit) {
       const inputLength = nextUnit.input?.length || 0;
       const nextChar = nextUnit.roman.substring(inputLength, inputLength + 1) ||
         nextUnit.kana;
       hint(`key-${nextChar}`);
+      if (nextUnit.state == "yet") nextUnit.state = "next";
     }
   }
+
   return (
     <div class="answer">
       {match.map(({ kana, roman, state, input }) => (

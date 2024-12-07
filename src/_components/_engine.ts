@@ -27,7 +27,7 @@ type CharUnit = {
   roman: string;
 };
 type CharUnitWithInput = CharUnit & {
-  state: "ok" | "ng" | "in" | "yet";
+  state: "yet" | "next" | "in" | "ok" | "ng";
   input?: string;
 };
 

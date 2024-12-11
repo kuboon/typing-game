@@ -1,8 +1,7 @@
 import RomajiField from "./RomajiField.tsx";
-import { GameSettings } from "./_lib.ts";
+import { GameSettings, QA } from "../_lib/types.ts";
 import { Signal, useEffect, useSignal } from "../_deps.ts";
 
-type QandA = { q: string; a: string };
 type GameMainState = "ready" | "playing";
 
 function Timer({ timer }: { timer: Signal<number> }) {
@@ -46,7 +45,7 @@ function addScoreGetAnimation(pt: number) {
 }
 
 export default function GameMain(
-  { problems, settings }: { problems: QandA[]; settings: GameSettings },
+  { problems, settings }: { problems: QA[]; settings: GameSettings },
 ) {
   const currentNum = useSignal(0);
   const state = useSignal<GameMainState>("ready");
@@ -150,7 +149,7 @@ export default function GameMain(
             <>
               <div class="question">{question}</div>
               <RomajiField
-                answer={current.a}
+                answer={current.a || current.q}
                 voice={settings.voice}
               />
             </>

@@ -7,3 +7,4 @@ export type GameSettings = {
   shuffle: boolean;
   voice: boolean;
 };
+export type QA = { q: string; a: string | null };

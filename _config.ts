@@ -42,7 +42,7 @@ const site = lume({
 site.use(esbuild({
   extensions: [".ts", ".tsx"],
   options: {
-    target: "es2020",
+    target: "es2022",
     minify: false,
     keepNames: true,
     plugins: [yamlPlugin],

@@ -2,7 +2,7 @@ import {
   loadRomajiDict,
   matchInput,
   test
-} from "./_engine.ts";
+} from "./engine.ts";
 import { assertEquals } from "@std/assert";
 import { parse } from "@std/yaml/parse";
 

@@ -1,5 +1,5 @@
-export const Hankaku = "abcdefghijklmnopqrstuvwxyz1234567890,.";
-export const Omoji = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export const Hankaku = Array.from({ length: 126 - 32 + 1 }, (_, i) => String.fromCharCode(i + 32)).join('');
+// export const Omoji = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export type GameSettings = {
   title: string;

@@ -138,8 +138,9 @@ button.play {
   text-align: center;
   cursor: pointer;
   font-size: 4vw;
+  user-select: none;
 }
-.key#Backspace {
+.key#key-Backspace {
   font-size: 3vw;
 }
 .keyboard .row .half {

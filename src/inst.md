@@ -15,6 +15,7 @@ layout: layout.vto
 - [都道府県](/#/csv/todoufuken.csv)
 - [県庁所在地](/#/csv/kenchou.csv)
 - [百人一首](/#/csv/hyakunin.csv)
+- [typescript](/#/csv/typescript.csv)
 
 # 問題の作り方
 
@@ -60,7 +61,7 @@ https://typing.kbn.one/#https://docs.google.com/spreadsheets/d/e/xxx/pub?gid=0&s
 
 - :title タイトル (画面に表示されます)
 - :timelimit 制限時間(秒)
-- :shuffle true にすると出題がシャッフルされます。
+- :shuffle false にすると出題がシャッフルされず、必ず上から順になります
 
 # ソースコード
 

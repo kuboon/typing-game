@@ -24,7 +24,7 @@ function parseCsv(csv: string) {
   const settings: GameSettings = {
     title: "",
     timelimit: 60,
-    shuffle: false,
+    shuffle: true,
     voice: false,
   };
   problems_.forEach(({ q, a }) => {
@@ -37,7 +37,7 @@ function parseCsv(csv: string) {
         settings.timelimit = parseInt(a);
         break;
       case ":shuffle":
-        settings.shuffle = a === "true";
+        settings.shuffle = a !== "false";
         break;
       case ":voice":
         settings.voice = a === "true";
@@ -48,7 +48,6 @@ function parseCsv(csv: string) {
   function shuffleArray(array: unknown[], rng: PCG) {
     for (let i = array.length - 1; i > 1; i--) {
       const j = rng.nextInt(i);
-      console.log({i, j});
       [array[i], array[j]] = [array[j], array[i]];
     }
   }

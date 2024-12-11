@@ -1,86 +1,72 @@
-import { assertEquals } from "@std/assert";
 import {
-  firstLongestKanaMatch,
-  kanaToRomanChars,
   loadRomajiDict,
   matchInput,
+  test
 } from "./_engine.ts";
+import { assertEquals } from "@std/assert";
 import { parse } from "@std/yaml/parse";
-const RomajiYaml_ = parse(Deno.readTextFileSync("./src/_data/romaji.yaml"));
-loadRomajiDict(RomajiYaml_ as any);
 
-Deno.test("kanaToRomanChars", () => {
-  assertEquals(kanaToRomanChars("あかさ"), [
-    { kana: "あ", roman: "a", state: "yet" },
-    { kana: "か", roman: "ka", state: "yet" },
-    { kana: "さ", roman: "sa", state: "yet" },
+const { firstKanaMatch } = test
+
+const RomajiYaml = parse(Deno.readTextFileSync("./src/_data/romaji.yaml"));
+loadRomajiDict(RomajiYaml);
+
+Deno.test("firstKanaMatch", async t => {
+  const subject = (name: string, expected: unknown[]) => t.step(name, () => assertEquals(firstKanaMatch(name), expected));
+  await subject("あかさ", [
+    { kana: "あ", roman: "a" }
   ]);
-  assertEquals(kanaToRomanChars("きっかけ"), [
-    { kana: "き", roman: "ki", state: "yet" },
-    { kana: "っか", roman: "kka", state: "yet" },
-    { kana: "け", roman: "ke", state: "yet" },
-  ]);
-  assertEquals(kanaToRomanChars("ふぁっしょん。"), [
-    { kana: "ふぁ", roman: "fa", state: "yet" },
-    { kana: "っしょ", roman: "ssho", state: "yet" },
-    { kana: "ん。", roman: "n.", state: "yet" },
+  await subject("ふぁっしょん", [
+    { kana: "ふぁ", roman: "fa" },
+    { kana: "ふ", roman: "hu" },
+    { kana: "ふ", roman: "fu" },
   ]);
 });
 
-Deno.test("matchInput", () => {
-  assertEquals(matchInput("wassya-", "わっしゃー"), [
+Deno.test("matchInput", async t => {
+  const subject = (input: string, kana: string, expected: unknown[]) => t.step(`${input},${kana}`, () => assertEquals(matchInput(input, kana), expected));
+  await subject("wassya", "わっしゃー", [
     { kana: "わ", roman: "wa", state: "ok" },
     { kana: "っしゃ", roman: "ssya", state: "ok" },
-    { kana: "ー", roman: "-", state: "ok" },
+    { kana: "ー", roman: "-" },
   ]);
-  assertEquals(matchInput("waxtusya-", "わっしゃー"), [
+  await subject("waxtusya-", "わっしゃー", [
     { kana: "わ", roman: "wa", state: "ok" },
     { kana: "っ", roman: "xtu", state: "ok" },
     { kana: "しゃ", roman: "sya", state: "ok" },
     { kana: "ー", roman: "-", state: "ok" },
   ]);
-  assertEquals(matchInput("wassha-", "わっしゃー"), [
+  await subject("wassha-", "わっしゃー", [
     { kana: "わ", roman: "wa", state: "ok" },
     { kana: "っしゃ", roman: "ssha", state: "ok" },
     { kana: "ー", roman: "-", state: "ok" },
   ]);
-  assertEquals(matchInput("wassh", "わっしゃー"), [
+  await subject("wassh", "わっしゃー", [
     { kana: "わ", roman: "wa", state: "ok" },
     { kana: "っしゃ", roman: "ssha", state: "in", input: "ssh" },
-    { kana: "ー", roman: "-", state: "yet" },
+    { kana: "ー", roman: "-" },
   ]);
-});
-Deno.test("xtu", () => {
-  assertEquals(firstLongestKanaMatch("っしょん。", "xt"), {
-    kana: "っ",
-    roman: "xtu",
-    input: "xt",
-    state: "in",
-  });
-});
-Deno.test("alphabet", () => {
-  assertEquals(matchInput("ac", "abc"), [
+  await subject("xt", "っしょん。", [
+    { kana: "っ", roman: "xtu", input: "xt", state: "in" },
+    { kana: "しょ", roman: "sho", },
+    { kana: "ん。", roman: "n.", },
+  ]);
+  await subject("ssho", "っしょん。", [
+    { kana: "っしょ", roman: "ssho", state: "ok" },
+    { kana: "ん。", roman: "n." }
+  ]);
+  await subject("ac", "abc", [
     { kana: "a", roman: "", state: "ok" },
     { kana: "b", roman: "", input: "c", state: "ng" },
-    { kana: "c", roman: "", state: "yet" },
+    { kana: "c", roman: "" },
   ]);
-});
-Deno.test({
-  name: "みえ",
-  fn() {
-    assertEquals(matchInput("mie", "みえ"), [
-      { kana: "み", roman: "mi", state: "ok" },
-      { kana: "え", roman: "e", state: "ok" },
-    ]);
-  },
-});
-Deno.test({
-  name: "paserr",
-  fn() {
-    assertEquals(matchInput("paserr", "ぱせり"), [
-      { kana: "ぱ", roman: "pa", state: "ok" },
-      { kana: "せ", roman: "se", state: "ok" },
-      { kana: "り", roman: "ri", state: "ng", input: "rr" },
-    ]);
-  },
+  await subject("mi", "みえ", [
+    { kana: "み", roman: "mi", state: "ok" },
+    { kana: "え", roman: "e" },
+  ]);
+  await subject("paserr", "ぱせり", [
+    { kana: "ぱ", roman: "pa", state: "ok" },
+    { kana: "せ", roman: "se", state: "ok" },
+    { kana: "り", roman: "ri", state: "ng", input: "rr" },
+  ]);
 });

@@ -10,7 +10,6 @@
       "type": "node",
       "program": "",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "/Users/kuboon/.asdf/shims/deno",
       "runtimeArgs": [
         "test",
         "--inspect-wait",

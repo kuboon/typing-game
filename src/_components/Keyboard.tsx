@@ -20,7 +20,7 @@ export default function Keyboard() {
             {row.split("").map((key) => {
               if (key == " ") return <div class="key"></div>;
               if (key == "\\") {
-                return <div class="key" id="Backspace">けす</div>;
+                return <div class="key" id="key-Backspace">けす</div>;
               }
               return <div class="key" id={`key-${key.toLowerCase()}`}>{key}</div>;
             })}
@@ -31,11 +31,11 @@ export default function Keyboard() {
     </div>
   );
 }
-export function hint(id: string) {
+export function hint(code: string) {
   document.querySelectorAll(".key").forEach((elem) =>
     elem.classList.remove("hint")
   );
-  const elem = document.getElementById(id);
+  const elem = document.getElementById(`key-${code}`);
   elem?.classList.add("hint");
 }
 
@@ -54,11 +54,11 @@ document.addEventListener("keyup", (e) => {
 document.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;
   if (target.classList.contains("key")) {
-    const key = target.innerText;
-    const event = key == "けす" ? { code: "Backspace" } : { key };
-    document.dispatchEvent(new KeyboardEvent("keydown", event));
+    const key = target.id.match(/key-(.*)/)![1];
+    console.log({key})
+    document.dispatchEvent(new KeyboardEvent("keydown", { key }));
     setTimeout(
-      () => document.dispatchEvent(new KeyboardEvent("keyup", event)),
+      () => document.dispatchEvent(new KeyboardEvent("keyup", { key })),
       200,
     );
   }

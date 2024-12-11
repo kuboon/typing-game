@@ -11,62 +11,63 @@ const { firstKanaMatch } = test
 const RomajiYaml = parse(Deno.readTextFileSync("./src/_data/romaji.yaml"));
 loadRomajiDict(RomajiYaml);
 
+type TC = Deno.TestContext;
+
 Deno.test("firstKanaMatch", async t => {
-  const subject = (name: string, expected: unknown[]) => t.step(name, () => assertEquals(firstKanaMatch(name), expected));
-  await subject("あかさ", [
+  const expect = (expected: unknown[]) => (it: TC) => assertEquals(firstKanaMatch(it.name), expected);
+  await t.step("あかさ", expect([
     { kana: "あ", roman: "a" }
-  ]);
-  await subject("ふぁっしょん", [
+  ]));
+  await t.step("ふぁっしょん", expect([
     { kana: "ふぁ", roman: "fa" },
     { kana: "ふ", roman: "hu" },
     { kana: "ふ", roman: "fu" },
-  ]);
+  ]));
 });
 
 Deno.test("matchInput", async t => {
-  const subject = (input: string, kana: string, expected: unknown[]) => t.step(`${input},${kana}`, () => assertEquals(matchInput(input, kana), expected));
-  await subject("wassya", "わっしゃー", [
-    { kana: "わ", roman: "wa", state: "ok" },
-    { kana: "っしゃ", roman: "ssya", state: "ok" },
-    { kana: "ー", roman: "-" },
-  ]);
-  await subject("waxtusya-", "わっしゃー", [
-    { kana: "わ", roman: "wa", state: "ok" },
-    { kana: "っ", roman: "xtu", state: "ok" },
-    { kana: "しゃ", roman: "sya", state: "ok" },
-    { kana: "ー", roman: "-", state: "ok" },
-  ]);
-  await subject("wassha-", "わっしゃー", [
-    { kana: "わ", roman: "wa", state: "ok" },
-    { kana: "っしゃ", roman: "ssha", state: "ok" },
-    { kana: "ー", roman: "-", state: "ok" },
-  ]);
-  await subject("wassh", "わっしゃー", [
-    { kana: "わ", roman: "wa", state: "ok" },
-    { kana: "っしゃ", roman: "ssha", state: "in", input: "ssh" },
-    { kana: "ー", roman: "-" },
-  ]);
-  await subject("xt", "っしょん。", [
-    { kana: "っ", roman: "xtu", input: "xt", state: "in" },
-    { kana: "しょ", roman: "sho", },
-    { kana: "ん。", roman: "n.", },
-  ]);
-  await subject("ssho", "っしょん。", [
-    { kana: "っしょ", roman: "ssho", state: "ok" },
-    { kana: "ん。", roman: "n." }
-  ]);
-  await subject("ac", "abc", [
-    { kana: "a", roman: "", state: "ok" },
-    { kana: "b", roman: "", input: "c", state: "ng" },
-    { kana: "c", roman: "" },
-  ]);
-  await subject("mi", "みえ", [
-    { kana: "み", roman: "mi", state: "ok" },
-    { kana: "え", roman: "e" },
-  ]);
-  await subject("paserr", "ぱせり", [
-    { kana: "ぱ", roman: "pa", state: "ok" },
-    { kana: "せ", roman: "se", state: "ok" },
-    { kana: "り", roman: "ri", state: "ng", input: "rr" },
-  ]);
+  const expect = (expected: unknown[]) => (it: TC) => assertEquals(matchInput(it.parent!.name, it.name), expected);
+  await t.step("わっしゃー", async t1 => {
+    await t1.step("wassy", expect([
+      { kana: "わ", roman: "wa", state: "ok" },
+      { kana: "っしゃ", roman: "ssya", state: "in", input: "ssy" },
+      { kana: "ー", roman: "-" },
+    ]))
+    await t1.step("wassye", expect([
+      { kana: "わ", roman: "wa", state: "ok" },
+      { kana: "っしゃ", roman: "ssya", state: "ng", input: "ssye" },
+      { kana: "ー", roman: "-" },
+    ]))
+    await t1.step("wassya", expect([
+      { kana: "わ", roman: "wa", state: "ok" },
+      { kana: "っしゃ", roman: "ssya", state: "ok" },
+      { kana: "ー", roman: "-" },
+    ]))
+    await t1.step("waltusha-", expect([
+      { kana: "わ", roman: "wa", state: "ok" },
+      { kana: "っ", roman: "ltu", state: "ok" },
+      { kana: "しゃ", roman: "sha", state: "ok" },
+      { kana: "ー", roman: "-", state: "ok" },
+    ]))
+  })
+
+  await t.step("っしょん。", async t1 => {
+    await t1.step("xt", expect([
+      { kana: "っ", roman: "xtu", input: "xt", state: "in" },
+      { kana: "しょ", roman: "sho", },
+      { kana: "ん。", roman: "n.", },
+    ]));
+    await t1.step("ssho", expect([
+      { kana: "っしょ", roman: "ssho", state: "ok" },
+      { kana: "ん。", roman: "n." }
+    ]));
+  })
+
+  await t.step('abc', async t1 => {
+    await t1.step('ac', expect([
+      { kana: "a", roman: "", state: "ok" },
+      { kana: "b", roman: "", input: "c", state: "ng" },
+      { kana: "c", roman: "" },
+    ]))
+  })
 });

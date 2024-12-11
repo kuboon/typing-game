@@ -49,9 +49,16 @@ function firstKanaMatch(
   return candidates
 }
 
+function longestMatch(str1: string, str2: string): number {
+  for (let i = 0; i < str1.length; i++) {
+    if (str1[i] !== str2[i]) { return i + 1; }
+  }
+  throw new Error("unreachable");
+}
+
 export function matchInput(
-  input: string,
   correct: string,
+  input = "",
 ): CharUnitWithInput[] {
   if (correct.length === 0) return [];
   const candidates = firstKanaMatch(correct)
@@ -59,39 +66,45 @@ export function matchInput(
     const candidate = candidates[0] || { kana: correct[0], roman: "" };
     return [
       candidate,
-      ...matchInput("", correct.slice(candidate.kana.length)),
+      ...matchInput(correct.slice(candidate.kana.length)),
     ]
   }
   if (candidates.length === 0) {
+    // first letter is not kana
     if (input[0] === correct[0]) {
       return [
         { kana: correct[0], roman: "", state: "ok" },
-        ...matchInput(input.slice(1), correct.slice(1)),
+        ...matchInput(correct.slice(1), input.slice(1)),
       ];
     } else {
       return [
         { kana: correct[0], roman: "", state: "ng", input },
-        ...matchInput("", correct.slice(1)),
+        ...matchInput(correct.slice(1)),
       ];
     }
   }
+  let longestMatched = { kana: "", roman: "", count: 0 };
   for (const { kana, roman } of candidates) {
     if (input.startsWith(roman)) {
       return [
         { kana, roman, state: "ok" },
-        ...matchInput(input.slice(roman.length), correct.slice(kana.length)),
+        ...matchInput(correct.slice(kana.length), input.slice(roman.length)),
       ];
     }
     if (roman.startsWith(input)) {
       return [
         { kana, roman, state: "in", input },
-        ...matchInput("", correct.slice(kana.length)),
+        ...matchInput(correct.slice(kana.length)),
       ];
+    }
+    const length = longestMatch(roman, input)
+    if (length > longestMatched.count) {
+      longestMatched = { kana, roman, count: length };
     }
   }
   return [
-    { kana: candidates[0].kana, roman: candidates[0].roman, state: "ng", input },
-    ...matchInput("", correct.slice(candidates[0].kana.length)),
+    { kana: longestMatched.kana, roman: longestMatched.roman, state: "ng", input },
+    ...matchInput(correct.slice(longestMatched.kana.length)),
   ]
 }
 

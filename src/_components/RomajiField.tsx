@@ -28,7 +28,7 @@ export default function RomajiField({ answer, voice }: Args) {
       speechSynthesis.speak(utterThis);
     }, [answer]);
   }
-  const match = matchInput(input.value, answer);
+  const match = matchInput(answer, input.value);
   const nextUnit = match.find((x) => x.state !== "ok");
   if(!nextUnit) {
     input.value = "";

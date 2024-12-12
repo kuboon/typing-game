@@ -1,4 +1,4 @@
-:title  typescript
+:title	typescript
 let isDone=false
 Record<string,number>
 addEventListener('click',()=>{})
@@ -9,5 +9,5 @@ return`Hello, ${name}`
 enum Direction{Up,Down,Left,Right}
 const tuple:[string,number]=['hello',10]
 class Animal{constructor(public name:string){}}
-const readOnlyArray:ReadonlyArray<number>=[1,2,3]
-function greet(name:string):string{
+ReadonlyArray<number>
+function greet(name:string):string{}

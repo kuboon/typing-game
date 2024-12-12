@@ -94,13 +94,13 @@ export default function GameMain(
     const onShare = async () => {
       let url = `https://ogp.kbn.one/typistan?score=${score.value}`;
       if (settings.title) {
-        url = url + `&title=${encodeURIComponent(settings.title)}`;
+        url += `&title=${encodeURIComponent(settings.title)}`;
       }
       const hash = location.hash.slice(1);
       if(hash.startsWith("v=2&")) {
-        url = url + `&${hash}`;
+        url += `&${hash}`;
       } else {
-        url = url + `&csv=${location.hash.slice(1)}`;
+        url += `&fetch=${location.hash.slice(1)}`;
       }
       await shareUrl(url);
     };

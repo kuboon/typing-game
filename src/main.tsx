@@ -8,7 +8,7 @@ let csv = "/csv/default.csv"
 if (hash.length > 0) {
   if(hash.startsWith("v=2&")) {
     const params = new URLSearchParams(hash);
-    csv = params.get("csv")!
+    csv = params.get("fetch")!
   } else {
     csv = hash
   }

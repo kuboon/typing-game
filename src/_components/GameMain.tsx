@@ -96,7 +96,10 @@ export default function GameMain(
       if (settings.title) {
         url = url + `&title=${encodeURIComponent(settings.title)}`;
       }
-      if (location.hash.length > 1) {
+      const hash = location.hash.slice(1);
+      if(hash.startsWith("v=2&")) {
+        url = url + `&${hash}`;
+      } else {
         url = url + `&csv=${location.hash.slice(1)}`;
       }
       await shareUrl(url);

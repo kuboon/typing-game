@@ -15,7 +15,7 @@ layout: layout.vto
 - [都道府県](/#/csv/todoufuken.csv)
 - [県庁所在地](/#/csv/kenchou.csv)
 - [百人一首](/#/csv/hyakunin.csv)
-- [typescript](/#csv=/csv/typescript.tsv)
+- [typescript](/#v=2&fetch=/csv/typescript.tsv)
 
 # 問題の作り方
 

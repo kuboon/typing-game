@@ -6,11 +6,11 @@ import { render } from "./_deps.ts";
 const hash = location.hash.slice(1);
 let csv = "/csv/default.csv"
 if (hash.length > 0) {
-  if (!hash.includes("csv=")) {
-    csv = hash
-  } else {
+  if(hash.startsWith("v=2&")) {
     const params = new URLSearchParams(hash);
     csv = params.get("csv")!
+  } else {
+    csv = hash
   }
 }
 

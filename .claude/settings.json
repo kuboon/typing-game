@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "which deno || (curl -fsSL https://github.com/denoland/deno/releases/latest/download/deno-x86_64-unknown-linux-gnu.zip -o /tmp/deno.zip && unzip -o /tmp/deno.zip -d /usr/local/bin/ && chmod +x /usr/local/bin/deno && echo 'Deno installed:' && deno --version)"
+          }
+        ]
+      }
+    ]
+  }
+}

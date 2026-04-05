@@ -7,7 +7,7 @@ import sheets from "lume/plugins/sheets.ts";
 import sourceMaps from "lume/plugins/source_maps.ts";
 import { isAbsolute, join } from "@std/path/posix";
 import { parse } from "@std/yaml/parse";
-import type { PluginBuild } from "esbuild"
+import type { PluginBuild } from "esbuild/mod.d.ts"
 
 export const yamlPlugin = {
   name: "yaml",

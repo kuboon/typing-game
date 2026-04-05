@@ -1,558 +1,620 @@
-ー: '-'
-。: '.'
-、: ','
-あ: a
-い: i
-う: u
-え: e
-お: o
-か: ka
-き: ki
-く: ku
-け: ke
-こ: ko
-さ: sa
-し:
-- si
-- shi
-す: su
-せ: se
-そ: so
-た: ta
-ち:
-- ti
-- chi
-つ:
-- tu
-- tsu
-て: te
-と: to
-な: na
-に: ni
-ぬ: nu
-ね: ne
-の: 'no'
-は: ha
-ひ: hi
-ふ:
-- hu
-- fu
-へ: he
-ほ: ho
-ま: ma
-み: mi
-む: mu
-め: me
-も: mo
-や: ya
-ゆ: yu
-よ: yo
-ら: ra
-り: ri
-る: ru
-れ: re
-ろ: ro
-わ: wa
-ゐ: wyi
-ゑ: wye
-を: wo
-ん: nn
-ぁ:
-- la
-- xa
-ぃ:
-- li
-- xi
-ぅ:
-- lu
-- xu
-ぇ:
-- le
-- xe
-ぉ:
-- lo
-- xo
-ゃ:
-- lya
-- xya
-ゅ:
-- lyu
-- xyu
-ょ:
-- lyo
-- xyo
-っ:
-- ltu
-- xtu
-が: ga
-ぎ: gi
-ぐ: gu
-げ: ge
-ご: go
-ざ: za
-じ:
-- zi
-- ji
-ず: zu
-ぜ: ze
-ぞ: zo
-だ: da
-ぢ: di
-づ: du
-で: de
-ど: do
-ば: ba
-び: bi
-ぶ: bu
-べ: be
-ぼ: bo
-ぱ: pa
-ぴ: pi
-ぷ: pu
-ぺ: pe
-ぽ: po
-きゃ: kya
-きゅ: kyu
-きぇ: kye
-きょ: kyo
-ぎゃ: gya
-ぎゅ: gyu
-ぎぇ: gye
-ぎょ: gyo
-くぁ: qa
-くぃ: qi
-くぇ: qe
-くぉ: qo
-しゃ:
-- sha
-- sya
-しゅ:
-- shu
-- syu
-しぇ:
-- she
-- sye
-しょ:
-- sho
-- syo
-じゃ: ja
-じゅ: ju
-じぇ: je
-じょ: jo
-ちゃ:
-- cha
-- cya
-- tya
-ちゅ:
-- chu
-- cyu
-- tyu
-ちぇ:
-- che
-- cye
-- tye
-ちょ:
-- cho
-- cyo
-- tyo
-ぢゃ: dya
-ぢゅ: dyu
-ぢぇ: dye
-ぢょ: dyo
-つぁ: tsa
-つぃ: tsi
-つぇ: tse
-つぉ: tso
-てゃ: tha
-てぃ: thi
-てゅ: thu
-てぇ: the
-てょ: tho
-でゃ: dha
-でぃ: dhi
-でゅ: dhu
-でぇ: dhe
-でょ: dho
-にゃ: nya
-にゅ: nyu
-にぇ: nye
-にょ: nyo
-ひゃ: hya
-ひゅ: hyu
-ひぇ: hye
-ひょ: hyo
-びゃ: bya
-びゅ: byu
-びぇ: bye
-びょ: byo
-ぴゃ: pya
-ぴゅ: pyu
-ぴぇ: pye
-ぴょ: pyo
-ふぁ: fa
-ふぃ: fi
-ふぇ: fe
-ふぉ: fo
-みゃ: mya
-みゅ: myu
-みぇ: mye
-みょ: myo
-りゃ: rya
-りゅ: ryu
-りぇ: rye
-りょ: ryo
-うぁ: wha
-うぃ: whi
-うぇ: whe
-うぉ: who
-ゔぁ: va
-ゔぃ: vi
-ゔ: vu
-ゔぇ: ve
-ゔぉ: vo
-ゔゃ: vya
-ゔゅ: vyu
-ゔょ: vyo
-っか: kka
-っき: kki
-っく: kku
-っけ: kke
-っこ: kko
-っさ: ssa
-っし:
-- ssi
-- sshi
-っす: ssu
-っせ: sse
-っそ: sso
-った: tta
-っち:
-- tti
-- cchi
-っつ:
-- ttu
-- ttsu
-って: tte
-っと: tto
-っは: hha
-っひ: hhi
-っふ: ffu
-っへ: hhe
-っほ: hho
-っま: mma
-っみ: mmi
-っむ: mmu
-っめ: mme
-っも: mmo
-っや: yya
-っゆ: yyu
-っよ: yyo
-っら: rra
-っり: rri
-っる: rru
-っれ: rre
-っろ: rro
-っわ: wwa
-っを: wwo
-っが: gga
-っぎ: ggi
-っぐ: ggu
-っげ: gge
-っご: ggo
-っざ: zza
-っじ:
-- zzi
-- jji
-っず: zzu
-っぜ: zze
-っぞ: zzo
-っだ: dda
-っぢ: ddi
-っづ: ddu
-っで: dde
-っど: ddo
-っば: bba
-っび: bbi
-っぶ: bbu
-っべ: bbe
-っぼ: bbo
-っぱ: ppa
-っぴ: ppi
-っぷ: ppu
-っぺ: ppe
-っぽ: ppo
-っきゃ: kkya
-っきゅ: kkyu
-っきぇ: kkye
-っきょ: kkyo
-っぎゃ: ggya
-っぎゅ: ggyu
-っぎぇ: ggye
-っぎょ: ggyo
-っくぁ: qqa
-っくぃ: qqi
-っくぇ: qqe
-っくぉ: qqo
-っしゃ:
-- ssha
-- ssya
-っしゅ:
-- sshu
-- ssyu
-っしぇ:
-- sshe
-- ssye
-っしょ:
-- ssho
-- ssyo
-っじゃ: jjya
-っじゅ: jjyu
-っじぇ: jjye
-っじょ: jjyo
-っちゃ:
-- ccha
-- ccya
-- ttya
-っちゅ:
-- cchu
-- ccyu
-- ttyu
-っちぇ:
-- cche
-- ccye
-- ttye
-っちょ:
-- ccho
-- ccyo
-- ttyo
-っぢゃ: ddya
-っぢゅ: ddyu
-っぢぇ: ddye
-っぢょ: ddyo
-っつぁ: ttsa
-っつぃ: ttsi
-っつぇ: ttse
-っつぉ: ttso
-ってゃ: ttya
-ってぃ: tti
-ってゅ: ttyu
-ってぇ: tthe
-ってょ: ttyo
-っでゃ: ddha
-っでぃ: ddhi
-っでゅ: ddhu
-っでぇ: ddhe
-っでょ: ddho
-っひゃ: hhya
-っひゅ: hhyu
-っひぇ: hhye
-っひょ: hhyo
-っびゃ: bbya
-っびゅ: bbyu
-っびぇ: bbye
-っびょ: bbyo
-っぴゃ: ppya
-っぴゅ: ppyu
-っぴぇ: ppye
-っぴょ: ppyo
-っふぁ: ffa
-っふぃ: ffi
-っふぇ: ffe
-っふぉ: ffo
-っみゃ: mmya
-っみゅ: mmyu
-っみぇ: mmye
-っみょ: mmyo
-っりゃ: rrya
-っりゅ: rryu
-っりぇ: rrye
-っりょ: rryo
-っゔぁ: vva
-っゔぃ: vvi
-っゔ: vvu
-っゔぇ: vve
-っゔぉ: vvo
-っゔゃ: vvyu
-っゔゅ: vvyu
-っゔょ: vvyo
-ん。: n.
-ん、: n,
-んか: nka
-んき: nki
-んく: nku
-んけ: nke
-んこ: nko
-んさ: nsa
-んし:
-- nsi
-- nshi
-んす: nsu
-んせ: nse
-んそ: nso
-んた: nta
-んち:
-- nti
-- nchi
-んつ:
-- ntu
-- ntsu
-んて: nte
-んと: nto
-んは: nha
-んひ: nhi
-んふ:
-- nhu
-- nfu
-んへ: nhe
-んほ: nho
-んま: nma
-んみ: nmi
-んむ: nmu
-んめ: nme
-んも: nmo
-んら: nra
-んり: nri
-んる: nru
-んれ: nre
-んろ: nro
-んわ: nwa
-んを: nwo
-んが: nga
-んぎ: ngi
-んぐ: ngu
-んげ: nge
-んご: ngo
-んざ: nza
-んじ:
-- nzi
-- nji
-んず: nzu
-んぜ: nze
-んぞ: nzo
-んだ: nda
-んぢ: ndi
-んづ: ndu
-んで: nde
-んど: ndo
-んば: nba
-んび: nbi
-んぶ: nbu
-んべ: nbe
-んぼ: nbo
-んぱ: npa
-んぴ: npi
-んぷ: npu
-んぺ: npe
-んぽ: npo
-んきゃ: nkya
-んきゅ: nkyu
-んきぇ: nkye
-んきょ: nkyo
-んぎゃ: ngya
-んぎゅ: ngyu
-んぎぇ: ngye
-んぎょ: ngyo
-んくぁ: nqa
-んくぃ: nqi
-んくぇ: nqe
-んくぉ: nqo
-んしゃ:
-- nsha
-- nsya
-んしゅ:
-- nshu
-- nsyu
-んしぇ:
-- nshe
-- nsye
-んしょ:
-- nsho
-- nsyo
-んじゃ: nja
-んじゅ: nju
-んじぇ: nje
-んじょ: njo
-んちゃ:
-- ncha
-- ncya
-- ntya
-んちゅ:
-- nchu
-- ncyu
-- ntyu
-んちぇ:
-- nche
-- ncye
-- ntye
-んちょ:
-- ncho
-- ncyo
-- ntyo
-んぢゃ: ndya
-んぢゅ: ndyu
-んぢぇ: ndye
-んぢょ: ndyo
-んつぁ: ntsa
-んつぃ: ntsi
-んつぇ: ntse
-んつぉ: ntso
-んてゃ: ntha
-んてぃ: nthi
-んてゅ: nthu
-んてぇ: nthe
-んてょ: ntho
-んでゃ: ndha
-んでぃ: ndhi
-んでゅ: ndhu
-んでぇ: ndhe
-んでょ: ndho
-んふぁ: nfa
-んふぃ: nfi
-んふぇ: nfe
-んふぉ: nfo
-んふゃ: nfya
-んふゅ: nfyu
-んふょ: nfyo
-んっか: nkka
-んっき: nkki
-んっく: nkk
-んっけ: nkke
-んっこ: nkko
-んっさ: nssa
-んっし:
-- nssi
-- nsshi
-んっす: nssu
-んっせ: nsse
-んっそ: nsso
-んった: ntta
-んっち:
-- ntti
-- ncchi
-んっつ:
-- nttu
-- nttsu
-んって: ntte
-んっと: ntto
-んっは: nhha
-んっひ: nhhi
-んっふ:
-- nhhu
-- nffu
-んっへ: nhhe
-んっほ: nhho
-んっま: nmma
-んっみ: nmmi
-んっむ: nmmu
-んっめ: nmme
-んっも: nmmo
-んっら: nrra
-んっり: nrri
-んっる: nrru
-んっれ: nrre
-んっろ: nrro
-んっわ: nwwa
-
-
-
-
+',': 、
+'-': ー
+'.': 。
+a: あ
+b:
+  a: ば
+  b:
+    a: っば
+    e: っべ
+    i: っび
+    o: っぼ
+    u: っぶ
+    y:
+      a: っびゃ
+      e: っびぇ
+      o: っびょ
+      u: っびゅ
+  e: べ
+  i: び
+  o: ぼ
+  u: ぶ
+  y:
+    a: びゃ
+    e: びぇ
+    o: びょ
+    u: びゅ
+c:
+  c:
+    h:
+      a: っちゃ
+      e: っちぇ
+      i: っち
+      o: っちょ
+      u: っちゅ
+    y:
+      a: っちゃ
+      e: っちぇ
+      o: っちょ
+      u: っちゅ
+  h:
+    a: ちゃ
+    e: ちぇ
+    i: ち
+    o: ちょ
+    u: ちゅ
+  y:
+    a: ちゃ
+    e: ちぇ
+    o: ちょ
+    u: ちゅ
+d:
+  a: だ
+  d:
+    a: っだ
+    e: っで
+    h:
+      a: っでゃ
+      e: っでぇ
+      i: っでぃ
+      o: っでょ
+      u: っでゅ
+    i: っぢ
+    o: っど
+    u: っづ
+    y:
+      a: っぢゃ
+      e: っぢぇ
+      o: っぢょ
+      u: っぢゅ
+  e: で
+  h:
+    a: でゃ
+    e: でぇ
+    i: でぃ
+    o: でょ
+    u: でゅ
+  i: ぢ
+  o: ど
+  u: づ
+  y:
+    a: ぢゃ
+    e: ぢぇ
+    o: ぢょ
+    u: ぢゅ
+e: え
+f:
+  a: ふぁ
+  e: ふぇ
+  f:
+    a: っふぁ
+    e: っふぇ
+    i: っふぃ
+    o: っふぉ
+    u: っふ
+  i: ふぃ
+  o: ふぉ
+  u: ふ
+g:
+  a: が
+  e: げ
+  g:
+    a: っが
+    e: っげ
+    i: っぎ
+    o: っご
+    u: っぐ
+    y:
+      a: っぎゃ
+      e: っぎぇ
+      o: っぎょ
+      u: っぎゅ
+  i: ぎ
+  o: ご
+  u: ぐ
+  y:
+    a: ぎゃ
+    e: ぎぇ
+    o: ぎょ
+    u: ぎゅ
+h:
+  a: は
+  e: へ
+  h:
+    a: っは
+    e: っへ
+    i: っひ
+    o: っほ
+    y:
+      a: っひゃ
+      e: っひぇ
+      o: っひょ
+      u: っひゅ
+  i: ひ
+  o: ほ
+  u: ふ
+  y:
+    a: ひゃ
+    e: ひぇ
+    o: ひょ
+    u: ひゅ
+i: い
+j:
+  a: じゃ
+  e: じぇ
+  i: じ
+  j:
+    i: っじ
+    y:
+      a: っじゃ
+      e: っじぇ
+      o: っじょ
+      u: っじゅ
+  o: じょ
+  u: じゅ
+k:
+  a: か
+  e: け
+  i: き
+  k:
+    a: っか
+    e: っけ
+    i: っき
+    o: っこ
+    u: っく
+    y:
+      a: っきゃ
+      e: っきぇ
+      o: っきょ
+      u: っきゅ
+  o: こ
+  u: く
+  y:
+    a: きゃ
+    e: きぇ
+    o: きょ
+    u: きゅ
+l:
+  a: ぁ
+  e: ぇ
+  i: ぃ
+  o: ぉ
+  t:
+    u: っ
+  u: ぅ
+  y:
+    a: ゃ
+    o: ょ
+    u: ゅ
+m:
+  a: ま
+  e: め
+  i: み
+  m:
+    a: っま
+    e: っめ
+    i: っみ
+    o: っも
+    u: っむ
+    y:
+      a: っみゃ
+      e: っみぇ
+      o: っみょ
+      u: っみゅ
+  o: も
+  u: む
+  y:
+    a: みゃ
+    e: みぇ
+    o: みょ
+    u: みゅ
+n:
+  ',': ん、
+  '.': ん。
+  a: な
+  b:
+    a: んば
+    e: んべ
+    i: んび
+    o: んぼ
+    u: んぶ
+  c:
+    c:
+      h:
+        i: んっち
+    h:
+      a: んちゃ
+      e: んちぇ
+      i: んち
+      o: んちょ
+      u: んちゅ
+    y:
+      a: んちゃ
+      e: んちぇ
+      o: んちょ
+      u: んちゅ
+  d:
+    a: んだ
+    e: んで
+    h:
+      a: んでゃ
+      e: んでぇ
+      i: んでぃ
+      o: んでょ
+      u: んでゅ
+    i: んぢ
+    o: んど
+    u: んづ
+    y:
+      a: んぢゃ
+      e: んぢぇ
+      o: んぢょ
+      u: んぢゅ
+  e: ね
+  f:
+    a: んふぁ
+    e: んふぇ
+    f:
+      u: んっふ
+    i: んふぃ
+    o: んふぉ
+    u: んふ
+    y:
+      a: んふゃ
+      o: んふょ
+      u: んふゅ
+  g:
+    a: んが
+    e: んげ
+    i: んぎ
+    o: んご
+    u: んぐ
+    y:
+      a: んぎゃ
+      e: んぎぇ
+      o: んぎょ
+      u: んぎゅ
+  h:
+    a: んは
+    e: んへ
+    h:
+      a: んっは
+      e: んっへ
+      i: んっひ
+      o: んっほ
+      u: んっふ
+    i: んひ
+    o: んほ
+    u: んふ
+  i: に
+  j:
+    a: んじゃ
+    e: んじぇ
+    i: んじ
+    o: んじょ
+    u: んじゅ
+  k:
+    a: んか
+    e: んけ
+    i: んき
+    k:
+      a: んっか
+      e: んっけ
+      i: んっき
+      o: んっこ
+      u: んっく
+    o: んこ
+    u: んく
+    y:
+      a: んきゃ
+      e: んきぇ
+      o: んきょ
+      u: んきゅ
+  m:
+    a: んま
+    e: んめ
+    i: んみ
+    m:
+      a: んっま
+      e: んっめ
+      i: んっみ
+      o: んっも
+      u: んっむ
+    o: んも
+    u: んむ
+  n: ん
+  o: の
+  p:
+    a: んぱ
+    e: んぺ
+    i: んぴ
+    o: んぽ
+    u: んぷ
+  q:
+    a: んくぁ
+    e: んくぇ
+    i: んくぃ
+    o: んくぉ
+  r:
+    a: んら
+    e: んれ
+    i: んり
+    o: んろ
+    r:
+      a: んっら
+      e: んっれ
+      i: んっり
+      o: んっろ
+      u: んっる
+    u: んる
+  s:
+    a: んさ
+    e: んせ
+    h:
+      a: んしゃ
+      e: んしぇ
+      i: んし
+      o: んしょ
+      u: んしゅ
+    i: んし
+    o: んそ
+    s:
+      a: んっさ
+      e: んっせ
+      h:
+        i: んっし
+      i: んっし
+      o: んっそ
+      u: んっす
+    u: んす
+    y:
+      a: んしゃ
+      e: んしぇ
+      o: んしょ
+      u: んしゅ
+  t:
+    a: んた
+    e: んて
+    h:
+      a: んてゃ
+      e: んてぇ
+      i: んてぃ
+      o: んてょ
+      u: んてゅ
+    i: んち
+    o: んと
+    s:
+      a: んつぁ
+      e: んつぇ
+      i: んつぃ
+      o: んつぉ
+      u: んつ
+    t:
+      a: んった
+      e: んって
+      i: んっち
+      o: んっと
+      s:
+        u: んっつ
+      u: んっつ
+    u: んつ
+    y:
+      a: んちゃ
+      e: んちぇ
+      o: んちょ
+      u: んちゅ
+  u: ぬ
+  w:
+    a: んわ
+    o: んを
+    w:
+      a: んっわ
+  y:
+    a: にゃ
+    e: にぇ
+    o: にょ
+    u: にゅ
+  z:
+    a: んざ
+    e: んぜ
+    i: んじ
+    o: んぞ
+    u: んず
+o: お
+p:
+  a: ぱ
+  e: ぺ
+  i: ぴ
+  o: ぽ
+  p:
+    a: っぱ
+    e: っぺ
+    i: っぴ
+    o: っぽ
+    u: っぷ
+    y:
+      a: っぴゃ
+      e: っぴぇ
+      o: っぴょ
+      u: っぴゅ
+  u: ぷ
+  y:
+    a: ぴゃ
+    e: ぴぇ
+    o: ぴょ
+    u: ぴゅ
+q:
+  a: くぁ
+  e: くぇ
+  i: くぃ
+  o: くぉ
+  q:
+    a: っくぁ
+    e: っくぇ
+    i: っくぃ
+    o: っくぉ
+r:
+  a: ら
+  e: れ
+  i: り
+  o: ろ
+  r:
+    a: っら
+    e: っれ
+    i: っり
+    o: っろ
+    u: っる
+    y:
+      a: っりゃ
+      e: っりぇ
+      o: っりょ
+      u: っりゅ
+  u: る
+  y:
+    a: りゃ
+    e: りぇ
+    o: りょ
+    u: りゅ
+s:
+  a: さ
+  e: せ
+  h:
+    a: しゃ
+    e: しぇ
+    i: し
+    o: しょ
+    u: しゅ
+  i: し
+  o: そ
+  s:
+    a: っさ
+    e: っせ
+    h:
+      a: っしゃ
+      e: っしぇ
+      i: っし
+      o: っしょ
+      u: っしゅ
+    i: っし
+    o: っそ
+    u: っす
+    y:
+      a: っしゃ
+      e: っしぇ
+      o: っしょ
+      u: っしゅ
+  u: す
+  y:
+    a: しゃ
+    e: しぇ
+    o: しょ
+    u: しゅ
+t:
+  a: た
+  e: て
+  h:
+    a: てゃ
+    e: てぇ
+    i: てぃ
+    o: てょ
+    u: てゅ
+  i: ち
+  o: と
+  s:
+    a: つぁ
+    e: つぇ
+    i: つぃ
+    o: つぉ
+    u: つ
+  t:
+    a: った
+    e: って
+    h:
+      e: ってぇ
+    i: ってぃ
+    o: っと
+    s:
+      a: っつぁ
+      e: っつぇ
+      i: っつぃ
+      o: っつぉ
+      u: っつ
+    u: っつ
+    y:
+      a: ってゃ
+      e: っちぇ
+      o: ってょ
+      u: ってゅ
+  u: つ
+  y:
+    a: ちゃ
+    e: ちぇ
+    o: ちょ
+    u: ちゅ
+u: う
+v:
+  a: ゔぁ
+  e: ゔぇ
+  i: ゔぃ
+  o: ゔぉ
+  u: ゔ
+  v:
+    a: っゔぁ
+    e: っゔぇ
+    i: っゔぃ
+    o: っゔぉ
+    u: っゔ
+    y:
+      a: っゔゃ
+      o: っゔょ
+      u: っゔゅ
+  y:
+    a: ゔゃ
+    o: ゔょ
+    u: ゔゅ
+w:
+  a: わ
+  h:
+    a: うぁ
+    e: うぇ
+    i: うぃ
+    o: うぉ
+  o: を
+  w:
+    a: っわ
+    o: っを
+  y:
+    e: ゑ
+    i: ゐ
+x:
+  a: ぁ
+  e: ぇ
+  i: ぃ
+  o: ぉ
+  t:
+    u: っ
+  u: ぅ
+  y:
+    a: ゃ
+    o: ょ
+    u: ゅ
+y:
+  a: や
+  o: よ
+  u: ゆ
+  y:
+    a: っや
+    o: っよ
+    u: っゆ
+z:
+  a: ざ
+  e: ぜ
+  i: じ
+  o: ぞ
+  u: ず
+  z:
+    a: っざ
+    e: っぜ
+    i: っじ
+    o: っぞ
+    u: っず

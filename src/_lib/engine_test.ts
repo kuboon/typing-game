@@ -20,8 +20,8 @@ Deno.test("firstKanaMatch", async t => {
   ]));
   await t.step("ふぁっしょん", expect([
     { kana: "ふぁ", roman: "fa" },
-    { kana: "ふ", roman: "hu" },
     { kana: "ふ", roman: "fu" },
+    { kana: "ふ", roman: "hu" },
   ]));
 });
 

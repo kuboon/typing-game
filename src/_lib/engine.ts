@@ -1,20 +1,26 @@
 const KanaRomansDict: Record<string, string[]> = {};
-const RomansKanaDict: Record<string, string> = {};
 let LongestKana = 0;
-// let LongestRoman = 0;
+
+type TrieNode = string | { [key: string]: TrieNode };
 
 export function loadRomajiDict(json_: unknown) {
-  const json = json_ as { [key: string]: string | string[] }
-  for (const kana in json) {
-    const val = json[kana];
-    const arr = Array.isArray(val) ? val : [val];
-    KanaRomansDict[kana] = arr;
-    for (const roman of arr) {
-      RomansKanaDict[roman] = kana;
+  const trie = json_ as { [key: string]: TrieNode };
+  // Walk the trie to reconstruct kana→romaji[] mapping
+  function walk(node: { [key: string]: TrieNode }, prefix: string) {
+    for (const char in node) {
+      const val = node[char];
+      const roman = prefix + char;
+      if (typeof val === "string") {
+        const kana = val;
+        if (!KanaRomansDict[kana]) KanaRomansDict[kana] = [];
+        KanaRomansDict[kana].push(roman);
+      } else {
+        walk(val, roman);
+      }
     }
   }
+  walk(trie, "");
   LongestKana = Math.max(...Object.keys(KanaRomansDict).map(x => x.length));
-  // LongestRoman = Math.max(...Object.keys(RomansKanaDict).map(x => x.length));
 }
 
 type CharUnit = {

@@ -57,5 +57,6 @@ site.use(sourceMaps());
 site.copy("index.html");
 site.copy("csv");
 site.copy("og.svg");
+site.copy("img");
 
 export default site;

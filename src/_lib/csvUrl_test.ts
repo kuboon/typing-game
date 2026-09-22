@@ -24,7 +24,7 @@ Deno.test("buildShareUrl", () => {
     csv: "https://example.com/a.csv?gid=0&output=csv",
   }));
   assertEquals(url.origin + url.pathname, "https://og.kbn.one/share");
-  assertEquals(url.searchParams.get("tmpl"), "typing.kbn.one/og.svg");
+  assertEquals(url.searchParams.get("tmpl"), "typing.kbn.one/og.json");
   assertEquals(url.searchParams.get("score"), "12");
   assertEquals(url.searchParams.get("title"), "百人一首");
   assertEquals(

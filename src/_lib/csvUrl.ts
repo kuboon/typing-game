@@ -18,13 +18,13 @@ export function csvUrlFromHash(hash: string): string {
 
 /**
  * og.kbn.one のシェア URL を組み立てる。
- * テンプレ (og.svg) の url パターンが fetch から元のゲーム URL を復元する。
+ * テンプレ (og.json) の url パターンが fetch から元のゲーム URL を復元する。
  */
 export function buildShareUrl(
   { score, title, csv }: { score: number; title: string; csv: string },
 ): string {
   const share = new URL("https://og.kbn.one/share");
-  share.searchParams.set("tmpl", "typing.kbn.one/og.svg");
+  share.searchParams.set("tmpl", "typing.kbn.one/og.json");
   share.searchParams.set("score", String(score));
   if (title) share.searchParams.set("title", title);
   share.searchParams.set("fetch", csv);

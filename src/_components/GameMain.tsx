@@ -1,5 +1,6 @@
 import RomajiField from "./RomajiField.tsx";
 import { GameSettings, QA } from "../_lib/types.ts";
+import { buildShareUrl, csvUrlFromHash } from "../_lib/csvUrl.ts";
 import { Signal, useEffect, useSignal } from "../_deps.ts";
 
 type GameMainState = "ready" | "playing";
@@ -92,17 +93,11 @@ export default function GameMain(
     document.addEventListener("game:done", onDone);
 
     const onShare = async () => {
-      let url = `https://ogp.kbn.one/typistan?score=${score.value}`;
-      if (settings.title) {
-        url += `&title=${encodeURIComponent(settings.title)}`;
-      }
-      const hash = location.hash.slice(1);
-      if(hash.startsWith("v=2&")) {
-        url += `&${hash}`;
-      } else {
-        url += `&fetch=${location.hash.slice(1)}`;
-      }
-      await shareUrl(url);
+      await shareUrl(buildShareUrl({
+        score: score.value,
+        title: settings.title,
+        csv: csvUrlFromHash(location.hash),
+      }));
     };
     document.getElementById("share")?.addEventListener("click", onShare);
 

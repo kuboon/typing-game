@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#f5f5dc"/>
   <rect x="24" y="24" width="1152" height="582" rx="32" fill="#ffffff" stroke="#ff00ff" stroke-width="8"/>
-  <image href="https://typing.kbn.one/img/typistan.jpg" x="590" y="160" width="570" height="441" preserveAspectRatio="xMaxYMax meet"/>
+  <!-- Mascot scaled to fit center square (630x630) -->
+  <image href="https://typing.kbn.one/img/typistan.jpg" x="465" y="180" width="270" height="209" preserveAspectRatio="xMaxYMax meet"/>
   <g font-family="M PLUS Rounded 1c" font-weight="800" text-anchor="middle">
-    <text x="600" y="140" font-size="88" fill="#333333">たいぴすたん</text>
-    <text x="600" y="215" font-size="52" fill="#666666">{{title}}</text>
-    <text x="330" y="340" font-size="56" fill="#333333">とくてん</text>
-    <text x="330" y="510" font-size="180" fill="#ff00ff">{{score}}</text>
-    <text x="330" y="580" font-size="36" fill="#999999">typing.kbn.one</text>
+    <text x="600" y="100" font-size="88" fill="#333333">たいぴすたん</text>
+    <text x="600" y="160" font-size="52" fill="#666666">{{title}}</text>
+    <text x="600" y="430" font-size="56" fill="#333333">とくてん</text>
+    <text x="600" y="530" font-size="180" fill="#ff00ff">{{score}}</text>
+    <text x="600" y="595" font-size="36" fill="#999999">typing.kbn.one</text>
   </g>
 </svg>
